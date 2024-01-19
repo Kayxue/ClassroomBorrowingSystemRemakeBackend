@@ -6,7 +6,7 @@ import { UserModule } from './user/user.module';
 import { PrismaModule } from 'nestjs-prisma';
 
 @Module({
-  imports: [AuthModule, UserModule, PrismaModule.forRoot()],
+  imports: [AuthModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
