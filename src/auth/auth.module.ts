@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { PrismaModule } from 'nestjs-prisma';
+import { UserModule } from '../user/user.module';
+import { LocalStrategy } from './local.strategy';
+import { PassportModule } from '@nestjs/passport';
+import { SessionSerializer } from './session.serializer';
 
 @Module({
-    imports:[PrismaModule.forRoot()],
-    providers:[AuthService]
+    imports: [UserModule, PassportModule],
+    providers: [AuthService, LocalStrategy, SessionSerializer]
 })
-export class AuthModule {}
+export class AuthModule { }
