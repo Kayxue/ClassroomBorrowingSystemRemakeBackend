@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
@@ -34,6 +34,7 @@ export class UserController {
     @UseGuards(AuthenticatedGuard)
     @Patch("/updatePassword")
     public async updatePassword(@Request() request, @Body() updatePasswordData: UpdateUserPasswordData) {
+        if (request.user.id !== updatePasswordData.userId) throw new BadRequestException("您無法變更別人的密碼")
         const returned = await this.userService.updateUserPassword(updatePasswordData)
         request.session.destroy();
         return "Password changed successfully, you have been logged out."
