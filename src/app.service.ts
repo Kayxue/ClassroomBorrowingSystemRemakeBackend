@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
+  public sendWelcome(): string {
     return 'Welcome to API of ClassroomBorrowingSystem';
   }
 }
