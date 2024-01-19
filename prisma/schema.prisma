@@ -13,6 +13,8 @@ model User{
     email String
     password String
     role String
+    department String
+    extension String
     borrows BorrowingData[]
 }
 
