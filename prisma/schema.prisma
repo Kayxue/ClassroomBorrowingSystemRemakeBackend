@@ -9,8 +9,8 @@ generator client {
 
 model User {
     id         String          @id @default(uuid())
-    username   String
-    email      String
+    username   String          @unique
+    email      String          @unique
     password   String
     department String
     extension  String
@@ -27,12 +27,12 @@ model BorrowingData {
     from        Int
     to          Int
     classroom   ClassroomData @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    classroomId String
+    classroomId String        @unique
 }
 
 model ClassroomData {
     id             String          @id @default(uuid())
-    name           String
+    name           String          @unique
     place          String
     description    String
     addedTime      DateTime
