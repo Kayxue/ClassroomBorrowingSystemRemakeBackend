@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { DeleteUserData, InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import * as bcrypt from "bcrypt"
 import { salt } from '../Config';
 import { PrismaService } from '../prisma-service/prisma-service.service';
@@ -27,7 +27,7 @@ export class UserService {
             throw new BadRequestException("新密碼與確認密碼不一致");
         }
         const user = await this.prismaService.user.findUnique({ where: { id: userId } })
-        if (!user) throw new BadRequestException("找不到使用者")
+        // if (!user) throw new BadRequestException("找不到使用者")
         const oldPasswordMatch = await bcrypt.compare(oldPassword, user.password)
         if (!oldPasswordMatch) throw new BadRequestException("舊密碼錯誤");
         if (oldPassword === newPassword) throw new BadRequestException("新舊密碼一致")
@@ -38,5 +38,18 @@ export class UserService {
                 password: newHashedPassword
             }
         })
+    }
+
+    public async deleteUser(requestUser: any, { userId }: DeleteUserData) {
+        if (requestUser.id !== userId && requestUser.role !== Roles.ADMIN) throw new ForbiddenException("非管理員無法刪除其他帳戶")
+        const actionResult = { logoutAfterSucceed: false, message: "Account Deleted Successful" };
+        if (requestUser.id == userId) {
+            actionResult.logoutAfterSucceed = true;
+            actionResult.message = "You have deleted your account, you have been logged out"
+        }
+        const user = await this.prismaService.user.findUnique({ where: { id: userId } })
+        if (!user) throw new BadRequestException("找不到使用者")
+        await this.prismaService.user.delete({ where: { id: userId } });
+        return actionResult
     }
 }

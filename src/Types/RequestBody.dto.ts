@@ -43,3 +43,9 @@ export class UpdateUserPasswordData{
     @IsNotEmpty()
     public readonly confirmPassword:string
 }
+
+export class DeleteUserData{
+    @IsString()
+    @IsNotEmpty()
+    public readonly userId:string
+}

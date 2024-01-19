@@ -1,6 +1,6 @@
-import { BadRequestException, Body, Controller, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
+import { DeleteUserData, InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 
@@ -38,5 +38,13 @@ export class UserController {
         const returned = await this.userService.updateUserPassword(updatePasswordData)
         request.session.destroy();
         return "Password changed successfully, you have been logged out."
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Delete("/deleteUser")
+    public async DeleteUserData(@Request() request, @Body() deleteUserData: DeleteUserData) {
+        const result = await this.userService.deleteUser(request.user, deleteUserData);
+        if (result.logoutAfterSucceed) request.session.destroy();
+        return result.message
     }
 }
