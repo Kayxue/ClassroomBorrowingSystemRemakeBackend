@@ -3,7 +3,6 @@ import { InsertUserData } from '../Types/RequestBody.dto';
 import * as bcrypt from "bcrypt"
 import { salt } from '../Config';
 import { PrismaService } from '../prisma-service/prisma-service.service';
-import e from 'express';
 
 @Injectable()
 export class UserService {
