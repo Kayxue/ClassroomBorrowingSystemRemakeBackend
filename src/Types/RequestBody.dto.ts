@@ -25,3 +25,21 @@ export class InsertUserData {
     @IsNotEmpty()
     public readonly role: string
 }
+
+export class UpdateUserPasswordData{
+    @IsString()
+    @IsNotEmpty()
+    public readonly userId:string
+
+    @IsString()
+    @IsNotEmpty()
+    public readonly oldPassword:string
+
+    @IsString()
+    @IsNotEmpty()
+    public readonly newPassword:string
+
+    @IsString()
+    @IsNotEmpty()
+    public readonly confirmPassword:string
+}

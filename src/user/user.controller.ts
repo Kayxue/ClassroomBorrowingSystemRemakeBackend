@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { InsertUserData } from '../Types/RequestBody.dto';
+import { InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 
@@ -29,5 +29,13 @@ export class UserController {
     @Get("/profile")
     public getProfile(@Request() request) {
         return request.user;
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Patch("/updatePassword")
+    public async updatePassword(@Request() request, @Body() updatePasswordData: UpdateUserPasswordData) {
+        const returned = await this.userService.updateUserPassword(updatePasswordData)
+        request.session.destroy();
+        return "Password changed successfully, you have been logged out."
     }
 }
