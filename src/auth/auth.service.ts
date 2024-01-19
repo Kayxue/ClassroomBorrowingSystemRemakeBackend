@@ -10,7 +10,7 @@ export class AuthService {
         const user = await this.userService.getUser(username);
         if (!user) return null;
         const correct = await bcrypt.compare(password, user.password);
-        if(user && correct){
+        if (user && correct) {
             delete user.password;
             return user;
         }

@@ -1,27 +1,27 @@
-import {IsNotEmpty, IsString} from "class-validator"
+import { IsNotEmpty, IsString } from "class-validator"
 
-export class InsertUserData{
+export class InsertUserData {
     @IsString()
     @IsNotEmpty()
-    public readonly username:string
-
-    @IsString()
-    @IsNotEmpty()
-    public readonly email:string
+    public readonly username: string
 
     @IsString()
     @IsNotEmpty()
-    public readonly password:string
+    public readonly email: string
 
     @IsString()
     @IsNotEmpty()
-    public readonly department:string
+    public readonly password: string
 
     @IsString()
     @IsNotEmpty()
-    public readonly extension:string
+    public readonly department: string
 
     @IsString()
     @IsNotEmpty()
-    public readonly role:string
+    public readonly extension: string
+
+    @IsString()
+    @IsNotEmpty()
+    public readonly role: string
 }

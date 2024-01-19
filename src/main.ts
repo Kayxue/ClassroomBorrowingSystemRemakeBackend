@@ -9,9 +9,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   app.use(expressSession({
-    secret:secret,
-    resave:false,
-    saveUninitialized:false
+    secret: secret,
+    resave: false,
+    saveUninitialized: false
   }))
   app.use(passport.initialize())
   app.use(passport.session())
