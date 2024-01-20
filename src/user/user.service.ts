@@ -23,6 +23,13 @@ export class UserService {
         return this.prismaService.user.findUnique({ where: { username: username } })
     }
 
+    public async getAllUsers() {
+        return (await this.prismaService.user.findMany()).map(e => {
+            delete e.password
+            return e;
+        });
+    }
+
     public async updateUserPassword({ userId, oldPassword, newPassword, confirmPassword }: UpdateUserPasswordData, { adminAction, adminId }: IAdminActionData) {
         if (!adminAction) {
             if (newPassword != confirmPassword) {

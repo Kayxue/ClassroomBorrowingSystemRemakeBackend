@@ -32,11 +32,17 @@ export class UserController {
         return request.user;
     }
 
+    @Get("/getUsers")
+    public getUsers(){
+        return this.userService.getAllUsers();
+    }
+
     @UseGuards(AuthenticatedGuard)
     @Patch("/updatePassword")
     public async updatePassword(@Request() request, @Body() updatePasswordData: UpdateUserPasswordData) {
-        if (request.user.id !== updatePasswordData.userId && request.user.role !== Roles.ADMIN) throw new BadRequestException("您無法變更別人的密碼")
-        const returned = await this.userService.updateUserPassword(updatePasswordData, { adminAction: request.user.role === Roles.ADMIN, adminId: request.user.id })
+        const adminActions={ adminAction: request.user.role === Roles.ADMIN, adminId: request.user.id }
+        if (request.user.id !== updatePasswordData.userId && !adminActions.adminAction) throw new BadRequestException("您不是管理員，無法變更別人的密碼")
+        const returned = await this.userService.updateUserPassword(updatePasswordData, adminActions)
         return "Password changed successfully."
     }
 
