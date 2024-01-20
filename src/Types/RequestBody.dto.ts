@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator"
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { Roles } from "./Types"
 
 export class InsertUserData {
     @IsString()
@@ -22,6 +23,7 @@ export class InsertUserData {
     public readonly extension: string
 
     @IsString()
+    @IsEnum(Roles)
     @IsNotEmpty()
     public readonly role: string
 }
@@ -40,8 +42,8 @@ export class UpdateUserPasswordData{
     public readonly newPassword:string
 
     @IsString()
-    @IsNotEmpty()
-    public readonly confirmPassword:string
+    @IsOptional()
+    public readonly confirmPassword?:string
 }
 
 export class DeleteUserData{

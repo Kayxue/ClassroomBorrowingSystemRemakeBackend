@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { DeleteUserData, InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
+import { Roles } from '../Types/Types';
 
 @Controller('user')
 export class UserController {
@@ -34,10 +35,9 @@ export class UserController {
     @UseGuards(AuthenticatedGuard)
     @Patch("/updatePassword")
     public async updatePassword(@Request() request, @Body() updatePasswordData: UpdateUserPasswordData) {
-        if (request.user.id !== updatePasswordData.userId) throw new BadRequestException("您無法變更別人的密碼")
-        const returned = await this.userService.updateUserPassword(updatePasswordData)
-        request.session.destroy();
-        return "Password changed successfully, you have been logged out."
+        if (request.user.id !== updatePasswordData.userId && request.user.role !== Roles.ADMIN) throw new BadRequestException("您無法變更別人的密碼")
+        const returned = await this.userService.updateUserPassword(updatePasswordData, { adminAction: request.user.role === Roles.ADMIN, adminId: request.user.id })
+        return "Password changed successfully."
     }
 
     @UseGuards(AuthenticatedGuard)
