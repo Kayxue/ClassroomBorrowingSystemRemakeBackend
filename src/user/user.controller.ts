@@ -1,9 +1,10 @@
 import { BadRequestException, Body, Controller, Delete, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { DeleteUserData, InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
+import { DeleteUserData, InsertUserData, UpdateUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { Roles } from '../Types/Types';
+import { UserUpdateGuard } from './user.update.guard';
 
 @Controller('user')
 export class UserController {
@@ -32,17 +33,26 @@ export class UserController {
         return request.user;
     }
 
+    @UseGuards(AuthenticatedGuard)
     @Get("/getUsers")
-    public getUsers(){
+    public getUsers() {
         return this.userService.getAllUsers();
     }
 
+    @UseGuards(UserUpdateGuard)
+    @UseGuards(AuthenticatedGuard)
+    @Patch("/updateUserInfo")
+    public async updateUserInfo(@Request() request, @Body() updateUserData: UpdateUserData) {
+        const { password, ...restData } = await this.userService.updateUserInformation(updateUserData);
+        return restData;
+    }
+
+    @UseGuards(UserUpdateGuard)
     @UseGuards(AuthenticatedGuard)
     @Patch("/updatePassword")
     public async updatePassword(@Request() request, @Body() updatePasswordData: UpdateUserPasswordData) {
-        const adminActions={ adminAction: request.user.role === Roles.ADMIN, adminId: request.user.id }
-        if (request.user.id !== updatePasswordData.userId && !adminActions.adminAction) throw new BadRequestException("您不是管理員，無法變更別人的密碼")
-        const returned = await this.userService.updateUserPassword(updatePasswordData, adminActions)
+        const adminActions = { adminAction: request.user.role === Roles.ADMIN, adminId: request.user.id }
+        await this.userService.updateUserPassword(updatePasswordData, adminActions)
         return "Password changed successfully."
     }
 

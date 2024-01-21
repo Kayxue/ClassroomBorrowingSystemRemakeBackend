@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
-import { DeleteUserData, InsertUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
+import { DeleteUserData, InsertUserData, UpdateUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import * as bcrypt from "bcrypt"
 import { salt } from '../Config';
 import { PrismaService } from '../prisma-service/prisma-service.service';
@@ -25,9 +25,19 @@ export class UserService {
 
     public async getAllUsers() {
         return (await this.prismaService.user.findMany()).map(e => {
-            delete e.password
-            return e;
+            const { password, ...rest } = e
+            return rest;
         });
+    }
+
+    public async updateUserInformation(updateUserData: UpdateUserData) {
+        const { userId, ...restUpdatedUserData } = updateUserData
+        return this.prismaService.user.update({
+            where: { id: userId },
+            data: {
+                ...restUpdatedUserData
+            }
+        })
     }
 
     public async updateUserPassword({ userId, oldPassword, newPassword, confirmPassword }: UpdateUserPasswordData, { adminAction, adminId }: IAdminActionData) {

@@ -1,6 +1,12 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator"
 import { Roles } from "./Types"
 
+export class BaseUserRequestData {
+    @IsString()
+    @IsNotEmpty()
+    public readonly userId: string
+}
+
 export class InsertUserData {
     @IsString()
     @IsNotEmpty()
@@ -23,31 +29,47 @@ export class InsertUserData {
     public readonly extension: string
 
     @IsString()
-    @IsEnum(Roles)
     @IsNotEmpty()
+    @IsEnum(Roles)
     public readonly role: string
 }
 
-export class UpdateUserPasswordData{
+export class UpdateUserPasswordData extends BaseUserRequestData {
     @IsString()
     @IsNotEmpty()
-    public readonly userId:string
+    public readonly oldPassword: string
 
     @IsString()
     @IsNotEmpty()
-    public readonly oldPassword:string
-
-    @IsString()
-    @IsNotEmpty()
-    public readonly newPassword:string
+    public readonly newPassword: string
 
     @IsString()
     @IsOptional()
-    public readonly confirmPassword?:string
+    public readonly confirmPassword?: string
 }
 
-export class DeleteUserData{
+export class UpdateUserData extends BaseUserRequestData {
     @IsString()
-    @IsNotEmpty()
-    public readonly userId:string
+    @IsOptional()
+    public readonly username?: string
+
+    @IsString()
+    @IsOptional()
+    public readonly email?: string
+
+    @IsString()
+    @IsOptional()
+    public readonly department?: string
+
+    @IsString()
+    @IsOptional()
+    public readonly extension?: string
+
+    @IsString()
+    @IsOptional()
+    @IsEnum(Roles)
+    public readonly role?: string
+}
+
+export class DeleteUserData extends BaseUserRequestData {
 }
