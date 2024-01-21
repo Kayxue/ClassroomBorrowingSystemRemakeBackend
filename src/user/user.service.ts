@@ -71,7 +71,6 @@ export class UserService {
     }
 
     public async deleteUser(requestUser: any, { userId }: DeleteUserData) {
-        if (requestUser.id !== userId && requestUser.role !== Roles.ADMIN) throw new ForbiddenException("非管理員無法刪除其他帳戶")
         const actionResult = { logoutAfterSucceed: false, message: "Account Deleted Successful" };
         if (requestUser.id == userId) {
             actionResult.logoutAfterSucceed = true;

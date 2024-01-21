@@ -4,7 +4,7 @@ import { DeleteUserData, InsertUserData, UpdateUserData, UpdateUserPasswordData 
 import { LocalAuthGuard } from '../auth/local.auth.guard';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { Roles } from '../Types/Types';
-import { UserUpdateGuard } from './user.update.guard';
+import { CheckSelfUserActionGuard } from './user.checkSelfAction.guard';
 
 @Controller('user')
 export class UserController {
@@ -39,7 +39,7 @@ export class UserController {
         return this.userService.getAllUsers();
     }
 
-    @UseGuards(UserUpdateGuard)
+    @UseGuards(CheckSelfUserActionGuard)
     @UseGuards(AuthenticatedGuard)
     @Patch("/updateUserInfo")
     public async updateUserInfo(@Request() request, @Body() updateUserData: UpdateUserData) {
@@ -47,7 +47,7 @@ export class UserController {
         return restData;
     }
 
-    @UseGuards(UserUpdateGuard)
+    @UseGuards(CheckSelfUserActionGuard)
     @UseGuards(AuthenticatedGuard)
     @Patch("/updatePassword")
     public async updatePassword(@Request() request, @Body() updatePasswordData: UpdateUserPasswordData) {
@@ -56,6 +56,7 @@ export class UserController {
         return "Password changed successfully."
     }
 
+    @UseGuards(CheckSelfUserActionGuard)
     @UseGuards(AuthenticatedGuard)
     @Delete("/deleteUser")
     public async DeleteUserData(@Request() request, @Body() deleteUserData: DeleteUserData) {
