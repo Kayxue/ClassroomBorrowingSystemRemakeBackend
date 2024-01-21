@@ -1,10 +1,11 @@
-import { BadRequestException, Body, Controller, Delete, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { DeleteUserData, InsertUserData, UpdateUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { Roles } from '../Types/Types';
 import { CheckSelfUserActionGuard } from './user.checkSelfAction.guard';
+import { CheckModifySelfRoleGuard } from './user.checkModifySelfRole.guard';
 
 @Controller('user')
 export class UserController {
@@ -30,7 +31,10 @@ export class UserController {
     @UseGuards(AuthenticatedGuard)
     @Get("/profile")
     public getProfile(@Request() request) {
-        return request.user;
+        return this.userService.getUserById(request.user.id, true).then(o => {
+            const { password, ...restUser } = o;
+            return restUser;
+        });
     }
 
     @UseGuards(AuthenticatedGuard)
@@ -39,9 +43,10 @@ export class UserController {
         return this.userService.getAllUsers();
     }
 
+    @UseGuards(CheckModifySelfRoleGuard)
     @UseGuards(CheckSelfUserActionGuard)
     @UseGuards(AuthenticatedGuard)
-    @Patch("/updateUserInfo")
+    @Patch("/updateInfo")
     public async updateUserInfo(@Request() request, @Body() updateUserData: UpdateUserData) {
         const { password, ...restData } = await this.userService.updateUserInformation(updateUserData);
         return restData;

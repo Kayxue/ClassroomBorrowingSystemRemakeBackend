@@ -19,8 +19,12 @@ export class UserService {
         }).catch(_ => { throw new BadRequestException("該使用者名稱已被使用") })
     }
 
-    public async getUser(username: string) {
-        return this.prismaService.user.findUnique({ where: { username: username } })
+    public async getUser(username: string, withBorrowData: boolean) {
+        return this.prismaService.user.findUnique({ where: { username: username }, include: { borrows: withBorrowData } })
+    }
+
+    public async getUserById(id: string, withBorrowData: boolean) {
+        return this.prismaService.user.findUnique({ where: { id }, include: { borrows: withBorrowData } })
     }
 
     public async getAllUsers() {
