@@ -84,17 +84,19 @@ export class BaseClassroomRequestData {
 
 export class GetClassroomData extends BaseClassroomRequestData { }
 
-export class InsertClassroomData{
+export class InsertClassroomData {
     @IsString()
     @IsNotEmpty()
-    public readonly name:string
+    public readonly name: string
 
     @IsString()
     @IsNotEmpty()
-    public readonly place:string
+    public readonly place: string
 
     @IsString()
     @IsNotEmpty()
-    public readonly description:string
+    public readonly description: string
 }
+
+export class DeleteClassroomData extends BaseClassroomRequestData { }
 

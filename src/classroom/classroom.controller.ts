@@ -1,6 +1,6 @@
-import { Body, Controller, Get, ParseBoolPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, ParseBoolPipe, Patch, Post, Query } from '@nestjs/common';
 import { ClassroomService } from './classroom.service';
-import { GetClassroomData, InsertClassroomData } from '../Types/RequestBody.dto';
+import { DeleteClassroomData, GetClassroomData, InsertClassroomData } from '../Types/RequestBody.dto';
 
 @Controller('classroom')
 export class ClassroomController {
@@ -19,5 +19,15 @@ export class ClassroomController {
     @Post("/addClassroom")
     public async addClassroom(@Body() classroomData: InsertClassroomData) {
         return this.classroomService.insertClassroom(classroomData);
+    }
+
+    @Patch("updateClassroom")
+    public async updateClassroom() {
+
+    }
+
+    @Delete("deleteClassroom")
+    public async deleteClassroom(@Body() classroomData: DeleteClassroomData) {
+        return this.classroomService.deleteClassroomData(classroomData);
     }
 }
