@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator"
 import { Roles } from "./Types"
 
 export class BaseUserRequestData {
@@ -83,4 +83,18 @@ export class BaseClassroomRequestData {
 }
 
 export class GetClassroomData extends BaseClassroomRequestData { }
+
+export class InsertClassroomData{
+    @IsString()
+    @IsNotEmpty()
+    public readonly name:string
+
+    @IsString()
+    @IsNotEmpty()
+    public readonly place:string
+
+    @IsString()
+    @IsNotEmpty()
+    public readonly description:string
+}
 

@@ -40,6 +40,7 @@ export class UserController {
     @Get('/getUser')
     public async getUser(@Body() body: GetUserData) {
         const o = await this.userService.getUserById(body.userId, true);
+        if (!o) throw new BadRequestException("找不到指定使用者")
         const { password, ...restUser } = o;
         return restUser;
     }
