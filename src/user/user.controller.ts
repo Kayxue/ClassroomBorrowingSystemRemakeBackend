@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { DeleteUserData, InsertUserData, UpdateUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
+import { DeleteUserData, GetUserData, InsertUserData, UpdateUserData, UpdateUserPasswordData } from '../Types/RequestBody.dto';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { Roles } from '../Types/Types';
@@ -30,11 +30,18 @@ export class UserController {
 
     @UseGuards(AuthenticatedGuard)
     @Get("/profile")
-    public getProfile(@Request() request) {
-        return this.userService.getUserById(request.user.id, true).then(o => {
-            const { password, ...restUser } = o;
-            return restUser;
-        });
+    public async getProfile(@Request() request) {
+        const o = await this.userService.getUserById(request.user.id, true);
+        const { password, ...restUser } = o;
+        return restUser;
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get('/getUser')
+    public async getUser(@Body() body: GetUserData) {
+        const o = await this.userService.getUserById(body.userId, true);
+        const { password, ...restUser } = o;
+        return restUser;
     }
 
     @UseGuards(AuthenticatedGuard)
