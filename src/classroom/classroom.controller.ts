@@ -1,6 +1,8 @@
-import { Body, Controller, Delete, Get, ParseBoolPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, ParseBoolPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ClassroomService } from './classroom.service';
-import { DeleteClassroomData, GetClassroomData, InsertClassroomData } from '../Types/RequestBody.dto';
+import { DeleteClassroomData, GetClassroomData, InsertClassroomData, UpdateClassroomData } from '../Types/RequestBody.dto';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
+import { RequireAdminGuard } from '../user/user.requireAdminGuard.guard';
 
 @Controller('classroom')
 export class ClassroomController {
@@ -8,7 +10,7 @@ export class ClassroomController {
 
     @Get("/getClassroom")
     public async getClassroom(@Body() { classroomId }: GetClassroomData, @Query("borrows", new ParseBoolPipe({ optional: true })) borrows?: boolean) {
-        return this.classroomService.getClassroom(classroomId, borrows);
+        return await this.classroomService.getClassroom(classroomId, borrows) ?? {};
     }
 
     @Get("/getClassrooms")
@@ -16,16 +18,22 @@ export class ClassroomController {
         return this.classroomService.getClassrooms(borrows);
     }
 
+    @UseGuards(RequireAdminGuard)
+    @UseGuards(AuthenticatedGuard)
     @Post("/addClassroom")
     public async addClassroom(@Body() classroomData: InsertClassroomData) {
         return this.classroomService.insertClassroom(classroomData);
     }
 
-    @Patch("updateClassroom")
-    public async updateClassroom() {
-
+    @UseGuards(RequireAdminGuard)
+    @UseGuards(AuthenticatedGuard)
+    @Patch("/updateClassroom")
+    public async updateClassroom(@Body() classroomData: UpdateClassroomData) {
+        return this.classroomService.updateClassroomData(classroomData);
     }
 
+    @UseGuards(RequireAdminGuard)
+    @UseGuards(AuthenticatedGuard)
     @Delete("deleteClassroom")
     public async deleteClassroom(@Body() classroomData: DeleteClassroomData) {
         return this.classroomService.deleteClassroomData(classroomData);

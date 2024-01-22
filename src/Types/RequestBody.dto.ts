@@ -82,7 +82,9 @@ export class BaseClassroomRequestData {
     public readonly classroomId: string
 }
 
-export class GetClassroomData extends BaseClassroomRequestData { }
+export class GetClassroomData extends BaseClassroomRequestData {
+
+}
 
 export class InsertClassroomData {
     @IsString()
@@ -98,5 +100,21 @@ export class InsertClassroomData {
     public readonly description: string
 }
 
-export class DeleteClassroomData extends BaseClassroomRequestData { }
+export class DeleteClassroomData extends BaseClassroomRequestData {
+
+}
+
+export class UpdateClassroomData extends BaseClassroomRequestData {
+    @IsString()
+    @IsOptional()
+    public readonly name?: string
+
+    @IsString()
+    @IsOptional()
+    public readonly place?: string
+
+    @IsString()
+    @IsOptional()
+    public readonly description?: string
+}
 

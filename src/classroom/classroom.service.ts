@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma-service/prisma-service.service';
-import { DeleteClassroomData, InsertClassroomData } from 'src/Types/RequestBody.dto';
+import { DeleteClassroomData, InsertClassroomData, UpdateClassroomData } from 'src/Types/RequestBody.dto';
 
 @Injectable()
 export class ClassroomService {
@@ -23,6 +23,13 @@ export class ClassroomService {
 
     public async getClassrooms(borrows?: boolean) {
         return this.prismaService.classroomData.findMany({ include: { borrowingDatas: borrows ?? false } })
+    }
+
+    public async updateClassroomData(classroomData: UpdateClassroomData) {
+        const { classroomId, ...restClassroomData } = classroomData
+        const result=this.prismaService.classroomData.findUnique({where:{id:classroomId}})
+        if(!result)throw new BadRequestException("找不到指定教室")
+        return this.prismaService.classroomData.update({ where: { id: classroomId }, data: { ...restClassroomData } });
     }
 
     public async deleteClassroomData(classroomData: DeleteClassroomData) {
