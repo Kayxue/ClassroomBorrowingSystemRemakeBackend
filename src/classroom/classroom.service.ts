@@ -14,7 +14,7 @@ export class ClassroomService {
                 addedTime: now,
                 updatedTime: now
             }
-        })
+        }).catch(_ => { throw new BadRequestException("此教室已新增") })
     }
 
     public async getClassroom(id: string, borrows?: boolean) {
@@ -27,9 +27,10 @@ export class ClassroomService {
 
     public async updateClassroomData(classroomData: UpdateClassroomData) {
         const { classroomId, ...restClassroomData } = classroomData
-        const result=this.prismaService.classroomData.findUnique({where:{id:classroomId}})
-        if(!result)throw new BadRequestException("找不到指定教室")
-        return this.prismaService.classroomData.update({ where: { id: classroomId }, data: { ...restClassroomData } });
+        const updateTime = new Date()
+        const result = this.prismaService.classroomData.findUnique({ where: { id: classroomId } })
+        if (!result) throw new BadRequestException("找不到指定教室")
+        return this.prismaService.classroomData.update({ where: { id: classroomId }, data: { ...restClassroomData, updatedTime: updateTime } });
     }
 
     public async deleteClassroomData(classroomData: DeleteClassroomData) {
