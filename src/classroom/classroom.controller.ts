@@ -5,8 +5,10 @@ import { ClassroomService } from './classroom.service';
 export class ClassroomController {
     public constructor(private classroomService: ClassroomService) { }
 
-    @Get("getClassroom")
+    @Get("/getClassroom")
     public async getClassroom(@Query('id') id?: string, @Query("borrows", new ParseBoolPipe({ optional: true })) borrows?: boolean) {
         return this.classroomService.getClassroom(id, borrows);
     }
+
+    
 }
