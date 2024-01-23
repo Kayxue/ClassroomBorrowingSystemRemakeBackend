@@ -21,13 +21,13 @@ model User {
 model BorrowingData {
     id          String        @id @default(uuid())
     user        User          @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    userId      String        @unique
+    userId      String        
     startTime   DateTime
     endTime     DateTime?
     from        Int
     to          Int
     classroom   ClassroomData @relation(fields: [classroomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    classroomId String        @unique
+    classroomId String        
 }
 
 model ClassroomData {

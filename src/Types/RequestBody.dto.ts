@@ -1,5 +1,6 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsDate, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Max, Min, ValidateIf } from "class-validator"
 import { Roles } from "./Types"
+import { Transform } from "class-transformer"
 
 export class BaseUserRequestData {
     @IsString()
@@ -118,3 +119,40 @@ export class UpdateClassroomData extends BaseClassroomRequestData {
     public readonly description?: string
 }
 
+export class BaseBorrowRequestData {
+    @IsString()
+    @IsNotEmpty()
+    public readonly borrowId: string
+}
+
+export class InsertBorrowData {
+    @IsString()
+    @IsNotEmpty()
+    public readonly userId: string
+
+    @IsDate()
+    @IsNotEmpty()
+    @Transform(() => Date)
+    public readonly startTime: Date
+
+    @IsDate()
+    @IsNotEmpty()
+    @Transform(() => Date)
+    public readonly endTime: Date
+
+    @IsInt()
+    @IsNotEmpty()
+    @Max(7)
+    @Min(0)
+    public readonly from: number
+
+    @IsInt()
+    @IsNotEmpty()
+    @Max(7)
+    @Min(0)
+    public readonly to: Date
+
+    @IsString()
+    @IsNotEmpty()
+    public readonly classroomId: string
+}
