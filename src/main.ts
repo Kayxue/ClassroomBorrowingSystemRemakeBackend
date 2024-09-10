@@ -6,6 +6,7 @@ import passport from "passport"
 import { secret } from './Config';
 
 async function bootstrap() {
+  require('dotenv').config();
   const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   app.use(expressSession({
