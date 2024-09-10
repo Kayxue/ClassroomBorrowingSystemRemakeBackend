@@ -24,10 +24,10 @@ export const user = pgTable('user', {
 export const classroom = pgTable('classroom', {
   id: uuid('id').defaultRandom().primaryKey(),
   name: text('name').unique().notNull(),
-  place: text('place'),
-  description: text('description'),
-  addedTime: timestamp('addedTime', { mode: 'date' }),
-  updatedTime: timestamp('updatedTime', { mode: 'date' }),
+  place: text('place').notNull(),
+  description: text('description').notNull(),
+  addedTime: timestamp('addedTime', { mode: 'date' }).notNull(),
+  updatedTime: timestamp('updatedTime', { mode: 'date' }).notNull(),
 });
 
 export const borrowing = pgTable('borrowing', {
@@ -37,8 +37,8 @@ export const borrowing = pgTable('borrowing', {
     .references(() => user.id, { onDelete: 'cascade' }),
   startTime: date('startTime').notNull(),
   endTime: date('endTime'),
-  from: integer('from'),
-  to: integer('to'),
+  from: integer('from').notNull(),
+  to: integer('to').notNull(),
   classroomId: uuid('classroomId')
     .notNull()
     .references(() => classroom.id, { onDelete: 'cascade' }),
