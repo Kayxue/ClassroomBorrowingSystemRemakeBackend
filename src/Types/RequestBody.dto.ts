@@ -34,7 +34,7 @@ export class InsertUserData {
     @IsString()
     @IsNotEmpty()
     @IsEnum(Roles)
-    public readonly role: string
+    public readonly role: Roles
 }
 
 export class UpdateUserPasswordData extends BaseUserRequestData {
@@ -71,7 +71,7 @@ export class UpdateUserData extends BaseUserRequestData {
     @IsString()
     @IsOptional()
     @IsEnum(Roles)
-    public readonly role?: string
+    public readonly role?: Roles
 }
 
 export class DeleteUserData extends BaseUserRequestData {

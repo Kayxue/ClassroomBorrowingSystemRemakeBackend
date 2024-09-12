@@ -13,7 +13,7 @@ export class UserController {
 
     @Post("/register")
     public async register(@Body() body: InsertUserData) {
-        return this.userService.insertUser(body);
+        return (await this.userService.insertUser(body))[0];
     }
 
     @UseGuards(LocalAuthGuard)
@@ -56,7 +56,7 @@ export class UserController {
     @UseGuards(AuthenticatedGuard)
     @Patch("/updateInfo")
     public async updateUserInfo(@Request() request, @Body() updateUserData: UpdateUserData) {
-        const { password, ...restData } = await this.userService.updateUserInformation(updateUserData);
+        const { password, ...restData } = (await this.userService.updateUserInformation(updateUserData))[0];
         return restData;
     }
 

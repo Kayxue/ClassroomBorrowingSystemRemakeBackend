@@ -22,14 +22,14 @@ export class ClassroomController {
     @UseGuards(AuthenticatedGuard)
     @Post("/addClassroom")
     public async addClassroom(@Body() classroomData: InsertClassroomData) {
-        return this.classroomService.insertClassroom(classroomData);
+        return (await this.classroomService.insertClassroom(classroomData))[0];
     }
 
     @UseGuards(RequireAdminGuard)
     @UseGuards(AuthenticatedGuard)
     @Patch("/updateClassroom")
     public async updateClassroom(@Body() classroomData: UpdateClassroomData) {
-        return this.classroomService.updateClassroomData(classroomData);
+        return (await this.classroomService.updateClassroomData(classroomData))[0];
     }
 
     @UseGuards(RequireAdminGuard)

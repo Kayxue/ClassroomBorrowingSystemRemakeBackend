@@ -1,42 +1,38 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma-service/prisma-service.service';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import * as schema from '../drizzle/schema';
+import { LibSQLDatabase } from 'drizzle-orm/libsql';
 import { DeleteClassroomData, InsertClassroomData, UpdateClassroomData } from 'src/Types/RequestBody.dto';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class ClassroomService {
-    public constructor(private prismaService: PrismaService) { }
+    public constructor(@Inject('drizzledb') private drizzledb: LibSQLDatabase<typeof schema>) { }
 
     public async insertClassroom(classroomData: InsertClassroomData) {
         const now = new Date();
-        return this.prismaService.classroomData.create({
-            data: {
-                ...classroomData,
-                addedTime: now,
-                updatedTime: now
-            }
-        }).catch(_ => { throw new BadRequestException("此教室已新增") })
+        return this.drizzledb.insert(schema.classroom).values({...classroomData,addedTime:now,updatedTime:now}).returning().catch(_ => { throw new BadRequestException("此教室已新增") });
     }
 
     public async getClassroom(id: string, borrows?: boolean) {
-        return this.prismaService.classroomData.findUnique({ where: { id }, include: { borrowingDatas: borrows ?? false } });
+        return this.drizzledb.query.classroom.findFirst({where:eq(schema.classroom.id,id),with:{borrowingDatas:(borrows||undefined)}})
     }
 
     public async getClassrooms(borrows?: boolean) {
-        return this.prismaService.classroomData.findMany({ include: { borrowingDatas: borrows ?? false } })
+        return this.drizzledb.query.classroom.findMany({with:{borrowingDatas: borrows||undefined}});
     }
 
     public async updateClassroomData(classroomData: UpdateClassroomData) {
         const { classroomId, ...restClassroomData } = classroomData
         const updateTime = new Date()
-        const result = this.prismaService.classroomData.findUnique({ where: { id: classroomId } })
+        const result=this.drizzledb.query.classroom.findFirst({where:eq(schema.classroom.id,classroomId)})
         if (!result) throw new BadRequestException("找不到指定教室")
-        return this.prismaService.classroomData.update({ where: { id: classroomId }, data: { ...restClassroomData, updatedTime: updateTime } });
+        return this.drizzledb.update(schema.classroom).set({...restClassroomData,updatedTime:updateTime}).where(eq(schema.classroom.id,classroomId)).returning()
     }
 
     public async deleteClassroomData(classroomData: DeleteClassroomData) {
-        const result = this.prismaService.classroomData.findUnique({ where: { id: classroomData.classroomId } });
+        const result=this.drizzledb.query.classroom.findFirst({where:eq(schema.classroom.id,classroomData.classroomId)})
         if (!result) throw new BadRequestException("找不到指定教室")
-        await this.prismaService.classroomData.delete({ where: { id: classroomData.classroomId } });
+        await this.drizzledb.delete(schema.classroom).where(eq(schema.classroom.id,classroomData.classroomId));
         return "成功刪除"
     }
 }

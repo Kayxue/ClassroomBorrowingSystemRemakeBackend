@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common';
 import { BorrowController } from './borrow.controller';
 import { BorrowService } from './borrow.service';
-import { PrismaService } from '../prisma-service/prisma-service.service';
+import { DrizzlePostgresModule } from '@knaadh/nestjs-drizzle-postgres';
+import { DrizzleORMUrl } from 'src/Config';
+import * as schema from "../drizzle/schema"
 
 @Module({
   controllers: [BorrowController],
-  providers: [BorrowService, PrismaService]
+  providers: [BorrowService],
+  imports: [
+    DrizzlePostgresModule.register({
+      tag: 'drizzledb',
+      postgres: {
+        url: DrizzleORMUrl,
+      },
+      config: { schema: { ...schema } },
+    }),
+  ],
 })
-export class BorrowModule { }
+export class BorrowModule {}
