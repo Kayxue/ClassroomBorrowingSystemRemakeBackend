@@ -1,11 +1,11 @@
 import { defineConfig } from 'drizzle-kit';
-import { DrizzleORMUrl } from 'src/Config';
+import { DrizzleORMUrl, MySQLUrl } from 'src/Config';
 
 export default defineConfig({
-  dialect: 'postgresql',
+  dialect: 'mysql',
   schema: './schema.ts',
   out: './migrations',
   dbCredentials: {
-    url: DrizzleORMUrl
+    url: MySQLUrl
   },
 });

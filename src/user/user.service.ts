@@ -13,25 +13,25 @@ import {
 import * as bcrypt from 'bcrypt';
 import { salt } from '../Config';
 import { IAdminActionData, Roles } from '../Types/Types';
-import { LibSQLDatabase } from 'drizzle-orm/libsql';
+import { MySql2Database } from 'drizzle-orm/mysql2';
 import * as schema from '../drizzle/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class UserService {
   public constructor(
-    @Inject('drizzledb') private drizzledb: LibSQLDatabase<typeof schema>,
+    @Inject('drizzledb') private drizzledb: MySql2Database<typeof schema>,
   ) {}
 
   public async insertUser(insertUserObj: InsertUserData) {
     const hashedPassword = await bcrypt.hash(insertUserObj.password, salt);
-    return this.drizzledb
+    const result = await this.drizzledb
       .insert(schema.user)
       .values({ ...insertUserObj, password: hashedPassword })
-      .returning()
       .catch((_) => {
         throw new BadRequestException('該使用者名稱已被使用');
       });
+    return result
   }
 
   public async getUser(username: string, withBorrowData: boolean) {
@@ -60,7 +60,6 @@ export class UserService {
       .update(schema.user)
       .set({ ...restUpdatedUserData })
       .where(eq(schema.user.id, userId))
-      .returning();
   }
 
   public async updateUserPassword(

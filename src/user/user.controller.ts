@@ -56,8 +56,9 @@ export class UserController {
     @UseGuards(AuthenticatedGuard)
     @Patch("/updateInfo")
     public async updateUserInfo(@Request() request, @Body() updateUserData: UpdateUserData) {
-        const { password, ...restData } = (await this.userService.updateUserInformation(updateUserData))[0];
-        return restData;
+        // const { password, ...restData } = (await this.userService.updateUserInformation(updateUserData))[0];
+        // return restData;
+        return "pending"
     }
 
     @UseGuards(CheckSelfUserActionGuard)

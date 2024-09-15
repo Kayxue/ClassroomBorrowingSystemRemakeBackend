@@ -1,45 +1,49 @@
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import {
   date,
-  integer,
-  pgEnum,
-  pgTable,
+  int,
+  mysqlEnum,
+  mysqlTable,
   text,
   timestamp,
-  uuid,
-} from 'drizzle-orm/pg-core';
+  varchar,
+} from 'drizzle-orm/mysql-core';
 
-export const rolesEnum = pgEnum('roles', ['Admin', 'Teacher']);
-
-export const user = pgTable('user', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  username: text('username').unique().notNull(),
+export const user = mysqlTable('user', {
+  id: varchar('id', { length: 48 })
+    .$defaultFn(() => crypto.randomUUID())
+    .primaryKey(),
+  username: varchar('username', { length: 256 }).unique().notNull(),
   email: text('email').notNull(),
   password: text('password').notNull(),
   department: text('department').notNull(),
   extension: text('extension').notNull(),
-  role: rolesEnum('role').notNull(),
+  role: mysqlEnum('roles', ['Admin', 'Teacher']).notNull(),
 });
 
-export const classroom = pgTable('classroom', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  name: text('name').unique().notNull(),
+export const classroom = mysqlTable('classroom', {
+  id: varchar('id', { length: 48 })
+    .default(sql`('UUID()')`)
+    .primaryKey(),
+  name: varchar('name', { length: 256 }).unique().notNull(),
   place: text('place').notNull(),
   description: text('description').notNull(),
   addedTime: timestamp('addedTime', { mode: 'date' }).notNull(),
   updatedTime: timestamp('updatedTime', { mode: 'date' }).notNull(),
 });
 
-export const borrowing = pgTable('borrowing', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  userId: uuid('userId')
+export const borrowing = mysqlTable('borrowing', {
+  id: varchar('id', { length: 48 })
+    .default(sql`('UUID()')`)
+    .primaryKey(),
+  userId: varchar('userId', { length: 48 })
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
   startTime: date('startTime').notNull(),
   endTime: date('endTime'),
-  from: integer('from').notNull(),
-  to: integer('to').notNull(),
-  classroomId: uuid('classroomId')
+  from: int('from').notNull(),
+  to: int('to').notNull(),
+  classroomId: varchar('classroomId', { length: 48 })
     .notNull()
     .references(() => classroom.id, { onDelete: 'cascade' }),
 });

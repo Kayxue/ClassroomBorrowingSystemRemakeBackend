@@ -1,22 +1,25 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { DrizzlePostgresModule } from '@knaadh/nestjs-drizzle-postgres';
-import { DrizzleORMUrl } from 'src/Config';
-import * as schema from "../drizzle/schema"
+import { DrizzleMySqlModule } from '@knaadh/nestjs-drizzle-mysql2';
+import { DrizzleORMUrl, MySQLConfig } from 'src/Config';
+import * as schema from '../drizzle/schema';
 
 @Module({
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],
-  imports:[
-    DrizzlePostgresModule.register({
-      tag:"drizzledb",
-      postgres:{
-        url:DrizzleORMUrl,
+  imports: [
+    DrizzleMySqlModule.register({
+      tag: 'drizzledb',
+      mysql: {
+        connection: 'client',
+        config: {
+          ...MySQLConfig,
+        },
       },
-      config:{schema:{...schema}}
-    })
-  ]
+      config: { schema: { ...schema }, mode: 'default' },
+    }),
+  ],
 })
-export class UserModule { }
+export class UserModule {}
