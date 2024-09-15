@@ -1,4 +1,4 @@
-import { IsDate, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Max, Min, ValidateIf } from "class-validator"
+import { IsDate, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Max, Min } from "class-validator"
 import { Roles } from "./Types"
 import { Transform } from "class-transformer"
 
