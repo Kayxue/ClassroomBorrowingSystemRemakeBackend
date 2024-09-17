@@ -8,7 +8,7 @@ import { secret } from './Config';
 async function bootstrap() {
   require('dotenv').config();
   const app = await NestFactory.create(AppModule, {
-    cors: { origin: true, credentials: true, preflightContinue: false },
+    cors: { origin: true, credentials: true },
   });
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
