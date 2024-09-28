@@ -3,7 +3,7 @@ import { AppModule } from "./app.module";
 import { ValidationPipe } from "@nestjs/common";
 import expressSession from "express-session";
 import passport from "passport";
-import { secret } from "./Config";
+import { sessionSecret } from "./Config";
 
 async function bootstrap() {
 	require("dotenv").config();
@@ -15,7 +15,7 @@ async function bootstrap() {
 	);
 	app.use(
 		expressSession({
-			secret: secret,
+			secret: sessionSecret,
 			resave: false,
 			saveUninitialized: false,
 		}),

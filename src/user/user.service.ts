@@ -10,8 +10,8 @@ import {
 	UpdateUserData,
 	UpdateUserPasswordData,
 } from "../Types/RequestBody.dto";
-import * as bcrypt from "bcrypt";
-import { salt } from "../Config";
+import * as argon2 from "argon2";
+import { passwordSecret, saltTimeCount } from "../Config";
 import { IAdminActionData, Roles } from "../Types/Types";
 import { MySql2Database } from "drizzle-orm/mysql2";
 import * as schema from "../drizzle/schema";
@@ -24,7 +24,10 @@ export class UserService {
 	) {}
 
 	public async insertUser(insertUserObj: InsertUserData) {
-		const hashedPassword = await bcrypt.hash(insertUserObj.password, salt);
+		const hashedPassword = await argon2.hash(insertUserObj.password, {
+			timeCost: saltTimeCount,
+			secret: passwordSecret,
+		});
 		const result = await this.drizzledb
 			.insert(schema.user)
 			.values({ ...insertUserObj, password: hashedPassword })
@@ -79,11 +82,16 @@ export class UserService {
 			const user = await this.drizzledb.query.user.findFirst({
 				where: eq(schema.user.id, userId),
 			});
-			const oldPasswordMatch = await bcrypt.compare(oldPassword, user.password);
+			const oldPasswordMatch = await argon2.verify(user.password, oldPassword, {
+				secret: passwordSecret,
+			});
 			if (!oldPasswordMatch) throw new BadRequestException("舊密碼錯誤");
 			if (oldPassword === newPassword)
 				throw new BadRequestException("新舊密碼一致");
-			const newHashedPassword = await bcrypt.hash(newPassword, salt);
+			const newHashedPassword = await argon2.hash(newPassword, {
+				timeCost: saltTimeCount,
+				secret: passwordSecret,
+			});
 			return this.drizzledb
 				.update(schema.user)
 				.set({ password: newHashedPassword })
@@ -92,13 +100,17 @@ export class UserService {
 			const admin = await this.drizzledb.query.user.findFirst({
 				where: eq(schema.user.id, adminId),
 			});
-			const adminPasswordCorrect = await bcrypt.compare(
-				oldPassword,
+			const adminPasswordCorrect = await argon2.verify(
 				admin.password,
+				oldPassword,
+				{ secret: passwordSecret },
 			);
 			if (!adminPasswordCorrect)
 				throw new BadRequestException("管理員密碼錯誤");
-			const newHashedPassword = await bcrypt.hash(newPassword, salt);
+			const newHashedPassword = await argon2.hash(newPassword, {
+				timeCost: saltTimeCount,
+				secret: passwordSecret,
+			});
 			return this.drizzledb
 				.update(schema.user)
 				.set({ password: newHashedPassword })

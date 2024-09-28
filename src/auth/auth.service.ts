@@ -1,6 +1,7 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { UserService } from "../user/user.service";
-import * as bcrypt from "bcrypt";
+import * as argon2 from "argon2";
+import { passwordSecret } from "src/Config";
 
 @Injectable()
 export class AuthService {
@@ -9,7 +10,9 @@ export class AuthService {
 	public async validateUser(username: string, password: string) {
 		const user = await this.userService.getUser(username, false);
 		if (!user) return null;
-		const correct = await bcrypt.compare(password, user.password);
+		const correct = await argon2.verify(user.password, password, {
+			secret: passwordSecret,
+		});
 		if (user && correct) {
 			const { password, ...restUser } = user;
 			return restUser;
