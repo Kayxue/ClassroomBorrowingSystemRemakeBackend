@@ -11,7 +11,7 @@ import {
 	UpdateUserPasswordData,
 } from "../Types/RequestBody.dto";
 import * as argon2 from "argon2";
-import { passwordSecret, saltTimeCount } from "../Config";
+import { passwordParallelism, passwordSecret, saltTimeCount } from "../Config";
 import { IAdminActionData, Roles } from "../Types/Types";
 import { MySql2Database } from "drizzle-orm/mysql2";
 import * as schema from "../drizzle/schema";
@@ -27,6 +27,7 @@ export class UserService {
 		const hashedPassword = await argon2.hash(insertUserObj.password, {
 			timeCost: saltTimeCount,
 			secret: passwordSecret,
+			parallelism: passwordParallelism,
 		});
 		const result = await this.drizzledb
 			.insert(schema.user)
@@ -91,6 +92,7 @@ export class UserService {
 			const newHashedPassword = await argon2.hash(newPassword, {
 				timeCost: saltTimeCount,
 				secret: passwordSecret,
+				parallelism: passwordParallelism,
 			});
 			return this.drizzledb
 				.update(schema.user)
@@ -110,6 +112,7 @@ export class UserService {
 			const newHashedPassword = await argon2.hash(newPassword, {
 				timeCost: saltTimeCount,
 				secret: passwordSecret,
+				parallelism: passwordParallelism,
 			});
 			return this.drizzledb
 				.update(schema.user)
