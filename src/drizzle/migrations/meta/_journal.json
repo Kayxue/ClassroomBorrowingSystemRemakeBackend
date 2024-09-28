@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1726392175046,
-      "tag": "0000_majestic_black_bird",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1726394480663,
-      "tag": "0001_reflective_thunderbolt_ross",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1726395004887,
-      "tag": "0002_powerful_blockbuster",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1726395036960,
-      "tag": "0003_many_doctor_doom",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1726395195433,
-      "tag": "0004_silent_sauron",
+      "when": 1727526883166,
+      "tag": "0000_parallel_captain_marvel",
       "breakpoints": true
     }
   ]

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "236930a9-45aa-45c3-bdbc-be6c0a9431db",
+  "id": "90511ccc-a519-4230-abbd-498c305cb8c8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "borrowing": {
@@ -171,8 +171,7 @@
           "type": "varchar(48)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "('UUID()')"
+          "autoincrement": false
         },
         "username": {
           "name": "username",

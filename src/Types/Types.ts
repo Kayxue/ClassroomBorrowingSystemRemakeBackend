@@ -1,9 +1,9 @@
 export enum Roles {
-    ADMIN = "Admin",
-    TEACHER = "Teacher"
+	ADMIN = "Admin",
+	TEACHER = "Teacher",
 }
 
 export interface IAdminActionData {
-    adminAction: boolean
-    adminId: string
+	adminAction: boolean;
+	adminId: string;
 }

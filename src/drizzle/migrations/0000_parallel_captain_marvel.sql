@@ -21,7 +21,7 @@ CREATE TABLE `classroom` (
 );
 --> statement-breakpoint
 CREATE TABLE `user` (
-	`id` varchar(48) NOT NULL DEFAULT ('UUID()'),
+	`id` varchar(48) NOT NULL,
 	`username` varchar(256) NOT NULL,
 	`email` text NOT NULL,
 	`password` text NOT NULL,
