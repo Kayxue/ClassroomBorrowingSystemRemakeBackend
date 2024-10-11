@@ -6,7 +6,7 @@ import {
 	mysqlTable,
 	text,
 	timestamp,
-	varchar,
+	varchar
 } from "drizzle-orm/mysql-core";
 
 export const user = mysqlTable("user", {
@@ -23,7 +23,7 @@ export const user = mysqlTable("user", {
 
 export const classroom = mysqlTable("classroom", {
 	id: varchar("id", { length: 48 })
-		.default(sql`('UUID()')`)
+		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
 	name: varchar("name", { length: 256 }).unique().notNull(),
 	place: text("place").notNull(),
@@ -34,7 +34,7 @@ export const classroom = mysqlTable("classroom", {
 
 export const borrowing = mysqlTable("borrowing", {
 	id: varchar("id", { length: 48 })
-		.default(sql`('UUID()')`)
+		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
 	userId: varchar("userId", { length: 48 })
 		.notNull()
@@ -47,6 +47,12 @@ export const borrowing = mysqlTable("borrowing", {
 		.notNull()
 		.references(() => classroom.id, { onDelete: "cascade" }),
 });
+
+export const department=mysqlTable("department",{
+	id: varchar("id", { length: 48 })
+		.default(sql`('UUID()')`)
+		.primaryKey(),
+})
 
 export const userRelations = relations(user, ({ many }) => ({
 	borrows: many(borrowing),
