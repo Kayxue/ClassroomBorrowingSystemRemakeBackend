@@ -66,3 +66,4 @@ export const borrowingRelations = relations(borrowing, ({ one }) => ({
 		references: [classroom.id],
 	}),
 }));
+
