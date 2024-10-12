@@ -22,6 +22,10 @@ export class GetUserData extends BaseUserRequestData {}
 export class InsertUserData {
 	@IsString()
 	@IsNotEmpty()
+	public readonly departmentId: string;
+
+	@IsString()
+	@IsNotEmpty()
 	public readonly username: string;
 
 	@IsString()
@@ -34,7 +38,7 @@ export class InsertUserData {
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly department: string;
+	public readonly job: string;
 
 	@IsString()
 	@IsNotEmpty()
@@ -63,6 +67,10 @@ export class UpdateUserPasswordData extends BaseUserRequestData {
 export class UpdateUserData extends BaseUserRequestData {
 	@IsString()
 	@IsOptional()
+	public readonly departmentId?: string;
+
+	@IsString()
+	@IsOptional()
 	public readonly username?: string;
 
 	@IsString()
@@ -71,7 +79,7 @@ export class UpdateUserData extends BaseUserRequestData {
 
 	@IsString()
 	@IsOptional()
-	public readonly department?: string;
+	public readonly job?: string;
 
 	@IsString()
 	@IsOptional()

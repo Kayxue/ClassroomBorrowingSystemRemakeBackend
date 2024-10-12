@@ -18,7 +18,8 @@ export const user = mysqlTable("user", {
 	username: varchar("username", { length: 256 }).unique().notNull(),
 	email: text("email").notNull(),
 	password: text("password").notNull(),
-	department: text("department").notNull(),
+	departmentId:varchar("departmentId",{length:21}).notNull().references(() => department.id,{onDelete:"cascade"}),
+	job: text("job").notNull(),
 	extension: text("extension").notNull(),
 	role: mysqlEnum("roles", ["Admin", "Teacher"]).notNull(),
 });
@@ -58,8 +59,16 @@ export const department=mysqlTable("department",{
 	description:text("description").notNull()
 })
 
-export const userRelations = relations(user, ({ many }) => ({
+export const departmentRelations=relations(department,({many}) => ({
+	members:many(user)
+}))
+
+export const userRelations = relations(user, ({ many,one }) => ({
 	borrows: many(borrowing),
+	department:one(department,{
+		fields:[user.id],
+		references:[department.id]
+	})
 }));
 
 export const classroomRelations = relations(classroom, ({ many }) => ({
