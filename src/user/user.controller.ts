@@ -3,11 +3,9 @@ import {
 	Body,
 	Controller,
 	Delete,
-	ForbiddenException,
 	Get,
 	Param,
 	ParseBoolPipe,
-	ParseUUIDPipe,
 	Patch,
 	Post,
 	Query,
@@ -17,7 +15,6 @@ import {
 import { UserService } from "./user.service.ts";
 import {
 	DeleteUserData,
-	GetUserData,
 	InsertUserData,
 	UpdateUserData,
 	UpdateUserPasswordData,
@@ -60,7 +57,7 @@ export class UserController {
 	@UseGuards(new partActionsLoginRequiredGuard(["borrow", true]))
 	@Get("/getUser/:id")
 	public async getUser(
-		@Param("id", new ParseUUIDPipe()) userId: any,
+		@Param("id") userId: any,
 		@Query("borrow", new ParseBoolPipe({ optional: true })) getBorrow?: boolean,
 	) {
 		const o = await this.userService.getUserById(userId, getBorrow);

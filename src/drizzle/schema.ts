@@ -1,4 +1,4 @@
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
 	date,
 	int,
@@ -56,9 +56,9 @@ export const department = mysqlTable("department", {
 	id: varchar("id", { length: 21 })
 		.$defaultFn(() => nanoid())
 		.primaryKey(),
-	name: text("name").notNull(),
+	name: varchar("name", { length: 256 }).unique().notNull(),
 	description: text("description").notNull(),
-	location:text("location").notNull()
+	location: text("location").notNull(),
 });
 
 export const departmentRelations = relations(department, ({ many }) => ({

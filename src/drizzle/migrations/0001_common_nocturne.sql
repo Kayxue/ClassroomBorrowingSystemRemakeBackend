@@ -1,1 +1,0 @@
-ALTER TABLE `department` ADD `location` text NOT NULL;

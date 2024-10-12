@@ -22,9 +22,11 @@ CREATE TABLE `classroom` (
 --> statement-breakpoint
 CREATE TABLE `department` (
 	`id` varchar(21) NOT NULL,
-	`name` text NOT NULL,
+	`name` varchar(256) NOT NULL,
 	`description` text NOT NULL,
-	CONSTRAINT `department_id` PRIMARY KEY(`id`)
+	`location` text NOT NULL,
+	CONSTRAINT `department_id` PRIMARY KEY(`id`),
+	CONSTRAINT `department_name_unique` UNIQUE(`name`)
 );
 --> statement-breakpoint
 CREATE TABLE `user` (

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "f2606833-6ba1-49f3-8b81-db004fa614c9",
+  "id": "e5205212-76a4-4f7a-a023-8a6ca027f1d1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "borrowing": {
@@ -173,13 +173,20 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "description": {
           "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "location": {
+          "name": "location",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -196,7 +203,14 @@
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "department_name_unique": {
+          "name": "department_name_unique",
+          "columns": [
+            "name"
+          ]
+        }
+      }
     },
     "user": {
       "name": "user",
