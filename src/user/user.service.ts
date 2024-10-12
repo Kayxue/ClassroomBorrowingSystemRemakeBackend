@@ -29,13 +29,12 @@ export class UserService {
 			secret: passwordSecret,
 			parallelism: passwordParallelism,
 		});
-		const result = await this.drizzledb
+		return this.drizzledb
 			.insert(schema.user)
 			.values({ ...insertUserObj, password: hashedPassword })
 			.catch((_) => {
 				throw new BadRequestException("該使用者名稱已被使用");
 			});
-		return result;
 	}
 
 	public async getUser(username: string, withBorrowData: boolean) {

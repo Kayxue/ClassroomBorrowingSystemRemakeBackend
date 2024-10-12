@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+	binary,
 	date,
 	int,
 	mysqlEnum,
@@ -8,10 +9,11 @@ import {
 	timestamp,
 	varchar
 } from "drizzle-orm/mysql-core";
+import { nanoid } from "nanoid";
 
 export const user = mysqlTable("user", {
-	id: varchar("id", { length: 48 })
-		.$defaultFn(() => crypto.randomUUID())
+	id: varchar("id", { length: 21 })
+		.$defaultFn(() => nanoid())
 		.primaryKey(),
 	username: varchar("username", { length: 256 }).unique().notNull(),
 	email: text("email").notNull(),
@@ -22,8 +24,8 @@ export const user = mysqlTable("user", {
 });
 
 export const classroom = mysqlTable("classroom", {
-	id: varchar("id", { length: 48 })
-		.$defaultFn(() => crypto.randomUUID())
+	id: varchar("id", { length: 21 })
+		.$defaultFn(() => nanoid())
 		.primaryKey(),
 	name: varchar("name", { length: 256 }).unique().notNull(),
 	place: text("place").notNull(),
@@ -33,25 +35,27 @@ export const classroom = mysqlTable("classroom", {
 });
 
 export const borrowing = mysqlTable("borrowing", {
-	id: varchar("id", { length: 48 })
-		.$defaultFn(() => crypto.randomUUID())
+	id: varchar("id", { length: 21 })
+		.$defaultFn(() => nanoid())
 		.primaryKey(),
-	userId: varchar("userId", { length: 48 })
+	userId: varchar("userId", { length: 21 })
 		.notNull()
 		.references(() => user.id, { onDelete: "cascade" }),
 	startTime: date("startTime").notNull(),
 	endTime: date("endTime"),
 	from: int("from").notNull(),
 	to: int("to").notNull(),
-	classroomId: varchar("classroomId", { length: 48 })
+	classroomId: varchar("classroomId", { length: 21 })
 		.notNull()
 		.references(() => classroom.id, { onDelete: "cascade" }),
 });
 
 export const department=mysqlTable("department",{
-	id: varchar("id", { length: 48 })
-		.default(sql`('UUID()')`)
+	id: varchar("id", { length: 21 })
+		.$defaultFn(() => nanoid())
 		.primaryKey(),
+	name:text("name").notNull(),
+	description:text("description").notNull()
 })
 
 export const userRelations = relations(user, ({ many }) => ({
