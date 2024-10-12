@@ -7,6 +7,7 @@ import { ClassroomModule } from "./classroom/classroom.module.ts";
 import { BorrowModule } from "./borrow/borrow.module.ts";
 import { DepartmentModule } from "./department/department.module.ts";
 
+
 @Module({
 	imports: [
 		AuthModule,

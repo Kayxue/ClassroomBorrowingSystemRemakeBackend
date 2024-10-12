@@ -1,10 +1,12 @@
-import { Controller, Post } from "@nestjs/common";
-import type { DepartmentService } from "./department.service.ts";
+import { Controller, Get, Post } from '@nestjs/common';
+import { DepartmentService } from "./department.service.ts";
 
-@Controller("department")
+@Controller('department')
 export class DepartmentController {
-	// public constructor(private departmentService: DepartmentService) {}
+    public constructor(private departmentService:DepartmentService){}
 
-	// @Post("addDepartment")
-	// public async addDepartment() {}
+    @Post("/addDepartment")
+    public async addDepartment(){
+        return "Hello"
+    }
 }
