@@ -1,6 +1,5 @@
 import { relations, sql } from "drizzle-orm";
 import {
-	binary,
 	date,
 	int,
 	mysqlEnum,
@@ -59,6 +58,7 @@ export const department = mysqlTable("department", {
 		.primaryKey(),
 	name: text("name").notNull(),
 	description: text("description").notNull(),
+	location:text("location").notNull()
 });
 
 export const departmentRelations = relations(department, ({ many }) => ({

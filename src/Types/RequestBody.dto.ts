@@ -14,7 +14,7 @@ import { Transform } from "class-transformer";
 export class BaseUserRequestData {
 	@IsString()
 	@IsNotEmpty()
-	public readonly userId!: string;
+	public readonly userId: string;
 }
 
 export class GetUserData extends BaseUserRequestData {}
@@ -22,42 +22,42 @@ export class GetUserData extends BaseUserRequestData {}
 export class InsertUserData {
 	@IsString()
 	@IsNotEmpty()
-	public readonly departmentId!: string;
+	public readonly departmentId: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly username!: string;
+	public readonly username: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly email!: string;
+	public readonly email: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly password!: string;
+	public readonly password: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly job!: string;
+	public readonly job: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly extension!: string;
+	public readonly extension: string;
 
 	@IsString()
 	@IsNotEmpty()
 	@IsEnum(Roles)
-	public readonly role!: Roles;
+	public readonly role: Roles;
 }
 
 export class UpdateUserPasswordData extends BaseUserRequestData {
 	@IsString()
 	@IsNotEmpty()
-	public readonly oldPassword!: string;
+	public readonly oldPassword: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly newPassword!: string;
+	public readonly newPassword: string;
 
 	@IsString()
 	@IsOptional()
@@ -96,7 +96,7 @@ export class DeleteUserData extends BaseUserRequestData {}
 export class BaseClassroomRequestData {
 	@IsString()
 	@IsNotEmpty()
-	public readonly classroomId!: string;
+	public readonly classroomId: string;
 }
 
 export class GetClassroomData extends BaseClassroomRequestData {}
@@ -104,15 +104,15 @@ export class GetClassroomData extends BaseClassroomRequestData {}
 export class InsertClassroomData {
 	@IsString()
 	@IsNotEmpty()
-	public readonly name!: string;
+	public readonly name: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly place!: string;
+	public readonly place: string;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly description!: string;
+	public readonly description: string;
 }
 
 export class DeleteClassroomData extends BaseClassroomRequestData {}
@@ -134,37 +134,57 @@ export class UpdateClassroomData extends BaseClassroomRequestData {
 export class BaseBorrowRequestData {
 	@IsString()
 	@IsNotEmpty()
-	public readonly borrowId!: string;
+	public readonly borrowId: string;
 }
 
 export class InsertBorrowData {
 	@IsString()
 	@IsNotEmpty()
-	public readonly userId!: string;
+	public readonly userId: string;
 
 	@IsDate()
 	@IsNotEmpty()
 	@Transform(() => Date)
-	public readonly startTime!: Date;
+	public readonly startTime: Date;
 
 	@IsDate()
 	@IsNotEmpty()
 	@Transform(() => Date)
-	public readonly endTime!: Date;
+	public readonly endTime: Date;
 
 	@IsInt()
 	@IsNotEmpty()
 	@Max(7)
 	@Min(0)
-	public readonly from!: number;
+	public readonly from: number;
 
 	@IsInt()
 	@IsNotEmpty()
 	@Max(7)
 	@Min(0)
-	public readonly to!: Date;
+	public readonly to: Date;
 
 	@IsString()
 	@IsNotEmpty()
-	public readonly classroomId!: string;
+	public readonly classroomId: string;
+}
+
+export class BaseDepartmentRequestData {
+	@IsString()
+	@IsNotEmpty()
+	public readonly departmentId: string;
+}
+
+export class InsertDepartmentData {
+	@IsString()
+	@IsNotEmpty()
+	public readonly name: string;
+
+	@IsString()
+	@IsNotEmpty()
+	public readonly description: string;
+
+	@IsString()
+	@IsNotEmpty()
+	public readonly location: string;
 }

@@ -13,7 +13,7 @@ import { DepartmentModule } from "./department/department.module.ts";
 		UserModule,
 		ClassroomModule,
 		BorrowModule,
-		DepartmentModule,
+		DepartmentModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

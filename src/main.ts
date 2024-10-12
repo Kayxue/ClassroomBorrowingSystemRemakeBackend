@@ -4,11 +4,9 @@ import { ValidationPipe } from "@nestjs/common";
 import expressSession from "express-session";
 import passport from "passport";
 import { sessionSecret } from "./Config.ts";
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
+import "jsr:@std/dotenv/load";
 
 async function bootstrap() {
-	require("dotenv").config();
 	const app = await NestFactory.create(AppModule, {
 		cors: { origin: true, credentials: true },
 	});
