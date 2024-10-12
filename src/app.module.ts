@@ -5,10 +5,16 @@ import { AuthModule } from "./auth/auth.module.ts";
 import { UserModule } from "./user/user.module.ts";
 import { ClassroomModule } from "./classroom/classroom.module.ts";
 import { BorrowModule } from "./borrow/borrow.module.ts";
-import { DepartmentModule } from './department/department.module.ts';
+import { DepartmentModule } from "./department/department.module.ts";
 
 @Module({
-	imports: [AuthModule, UserModule, ClassroomModule, BorrowModule, DepartmentModule],
+	imports: [
+		AuthModule,
+		UserModule,
+		ClassroomModule,
+		BorrowModule,
+		DepartmentModule,
+	],
 	controllers: [AppController],
 	providers: [AppService],
 })

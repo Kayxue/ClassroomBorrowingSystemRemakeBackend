@@ -7,7 +7,7 @@ import {
 	mysqlTable,
 	text,
 	timestamp,
-	varchar
+	varchar,
 } from "drizzle-orm/mysql-core";
 import { nanoid } from "nanoid";
 
@@ -18,7 +18,9 @@ export const user = mysqlTable("user", {
 	username: varchar("username", { length: 256 }).unique().notNull(),
 	email: text("email").notNull(),
 	password: text("password").notNull(),
-	departmentId:varchar("departmentId",{length:21}).notNull().references(() => department.id,{onDelete:"cascade"}),
+	departmentId: varchar("departmentId", { length: 21 })
+		.notNull()
+		.references(() => department.id, { onDelete: "cascade" }),
 	job: text("job").notNull(),
 	extension: text("extension").notNull(),
 	role: mysqlEnum("roles", ["Admin", "Teacher"]).notNull(),
@@ -51,24 +53,24 @@ export const borrowing = mysqlTable("borrowing", {
 		.references(() => classroom.id, { onDelete: "cascade" }),
 });
 
-export const department=mysqlTable("department",{
+export const department = mysqlTable("department", {
 	id: varchar("id", { length: 21 })
 		.$defaultFn(() => nanoid())
 		.primaryKey(),
-	name:text("name").notNull(),
-	description:text("description").notNull()
-})
+	name: text("name").notNull(),
+	description: text("description").notNull(),
+});
 
-export const departmentRelations=relations(department,({many}) => ({
-	members:many(user)
-}))
+export const departmentRelations = relations(department, ({ many }) => ({
+	members: many(user),
+}));
 
-export const userRelations = relations(user, ({ many,one }) => ({
+export const userRelations = relations(user, ({ many, one }) => ({
 	borrows: many(borrowing),
-	department:one(department,{
-		fields:[user.id],
-		references:[department.id]
-	})
+	department: one(department, {
+		fields: [user.id],
+		references: [department.id],
+	}),
 }));
 
 export const classroomRelations = relations(classroom, ({ many }) => ({
@@ -85,4 +87,3 @@ export const borrowingRelations = relations(borrowing, ({ one }) => ({
 		references: [classroom.id],
 	}),
 }));
-
