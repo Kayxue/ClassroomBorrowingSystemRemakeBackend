@@ -9,12 +9,16 @@ import {
 	InsertUserData,
 	UpdateUserData,
 	UpdateUserPasswordData,
-} from "../Types/RequestBody.dto";
+} from "../Types/RequestBody.dto.ts";
 import * as argon2 from "argon2";
-import { passwordParallelism, passwordSecret, saltTimeCount } from "../Config";
-import { IAdminActionData, Roles } from "../Types/Types";
-import { MySql2Database } from "drizzle-orm/mysql2";
-import * as schema from "../drizzle/schema";
+import {
+	passwordParallelism,
+	passwordSecret,
+	saltTimeCount,
+} from "../Config.ts";
+import { IAdminActionData, Roles } from "../Types/Types.ts";
+import { type MySql2Database } from "drizzle-orm/mysql2";
+import * as schema from "../drizzle/schema.ts";
 import { eq } from "drizzle-orm";
 
 @Injectable()
@@ -44,7 +48,7 @@ export class UserService {
 		});
 	}
 
-	public async getUserById(id: string, withBorrowData: boolean) {
+	public async getUserById(id: string, withBorrowData: boolean | undefined) {
 		return this.drizzledb.query.user.findFirst({
 			where: eq(schema.user.id, id),
 			with: { borrows: withBorrowData || undefined },
@@ -82,9 +86,13 @@ export class UserService {
 			const user = await this.drizzledb.query.user.findFirst({
 				where: eq(schema.user.id, userId),
 			});
-			const oldPasswordMatch = await argon2.verify(user.password, oldPassword, {
-				secret: passwordSecret,
-			});
+			const oldPasswordMatch = await argon2.verify(
+				user!.password,
+				oldPassword,
+				{
+					secret: passwordSecret,
+				},
+			);
 			if (!oldPasswordMatch) throw new BadRequestException("舊密碼錯誤");
 			if (oldPassword === newPassword)
 				throw new BadRequestException("新舊密碼一致");
@@ -102,7 +110,7 @@ export class UserService {
 				where: eq(schema.user.id, adminId),
 			});
 			const adminPasswordCorrect = await argon2.verify(
-				admin.password,
+				admin!.password,
 				oldPassword,
 				{ secret: passwordSecret },
 			);

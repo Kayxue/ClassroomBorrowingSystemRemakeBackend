@@ -1,9 +1,11 @@
 import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
+import { AppModule } from "./app.module.ts";
 import { ValidationPipe } from "@nestjs/common";
 import expressSession from "express-session";
 import passport from "passport";
-import { sessionSecret } from "./Config";
+import { sessionSecret } from "./Config.ts";
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
 
 async function bootstrap() {
 	require("dotenv").config();

@@ -1,5 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-import { DrizzleORMUrl, MySQLUrl } from "src/Config";
+import { DrizzleORMUrl, MySQLUrl } from "../Config.ts";
 
 export default defineConfig({
 	dialect: "mysql",

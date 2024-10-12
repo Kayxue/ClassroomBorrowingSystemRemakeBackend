@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { BorrowController } from "./borrow.controller";
-import { BorrowService } from "./borrow.service";
-import { DrizzleORMUrl, MySQLConfig } from "src/Config";
-import * as schema from "../drizzle/schema";
+import { BorrowController } from "./borrow.controller.ts";
+import { BorrowService } from "./borrow.service.ts";
+import { DrizzleORMUrl, MySQLConfig } from "../Config.ts";
+import * as schema from "../drizzle/schema.ts";
 import { DrizzleMySqlModule } from "@knaadh/nestjs-drizzle-mysql2";
 
 @Module({

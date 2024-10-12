@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
-import { UserService } from "../user/user.service";
+import { UserService } from "../user/user.service.ts";
 import * as argon2 from "argon2";
-import { passwordSecret } from "src/Config";
+import { passwordSecret } from "../Config.ts";
 
 @Injectable()
 export class AuthService {

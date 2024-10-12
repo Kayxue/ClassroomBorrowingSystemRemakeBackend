@@ -14,20 +14,21 @@ import {
 	Request,
 	UseGuards,
 } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { UserService } from "./user.service.ts";
 import {
 	DeleteUserData,
 	GetUserData,
 	InsertUserData,
 	UpdateUserData,
 	UpdateUserPasswordData,
-} from "../Types/RequestBody.dto";
-import { LocalAuthGuard } from "../auth/local.auth.guard";
-import { AuthenticatedGuard } from "../auth/authenticated.guard";
-import { Roles } from "../Types/Types";
-import { CheckSelfUserActionGuard } from "./user.checkSelfAction.guard";
-import { CheckModifySelfRoleGuard } from "./user.checkModifySelfRole.guard";
-import { partActionsLoginRequiredGuard } from "src/auth/user.partActionsLoginRequired.guard";
+} from "../Types/RequestBody.dto.ts";
+import { LocalAuthGuard } from "../auth/local.auth.guard.ts";
+import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
+import { Roles } from "../Types/Types.ts";
+import { CheckSelfUserActionGuard } from "./user.checkSelfAction.guard.ts";
+import { CheckModifySelfRoleGuard } from "./user.checkModifySelfRole.guard.ts";
+import { partActionsLoginRequiredGuard } from "../auth/user.partActionsLoginRequired.guard.ts";
+import { CheckModifySelfDepartmentGuard } from "./user.checkModifySelfDepartment.guard.ts";
 
 @Controller("user")
 export class UserController {
@@ -40,26 +41,26 @@ export class UserController {
 
 	@UseGuards(LocalAuthGuard)
 	@Post("/login")
-	public login(@Request() request) {
+	public login(@Request() request: any) {
 		return request.user;
 	}
 
 	@Get("/logout")
-	public logout(@Request() request) {
+	public logout(@Request() request: any) {
 		request.session.destroy();
 		return "Logged out";
 	}
 
 	@UseGuards(AuthenticatedGuard)
 	@Get("/profile")
-	public async getProfile(@Request() request) {
+	public async getProfile(@Request() request: any) {
 		return this.userService.getUserById(request.user.id, true);
 	}
 
 	@UseGuards(new partActionsLoginRequiredGuard(["borrow", true]))
 	@Get("/getUser/:id")
 	public async getUser(
-		@Param("id", new ParseUUIDPipe()) userId,
+		@Param("id", new ParseUUIDPipe()) userId: any,
 		@Query("borrow", new ParseBoolPipe({ optional: true })) getBorrow?: boolean,
 	) {
 		const o = await this.userService.getUserById(userId, getBorrow);
@@ -73,20 +74,19 @@ export class UserController {
 	}
 
 	@UseGuards(CheckModifySelfRoleGuard)
+	@UseGuards(CheckModifySelfDepartmentGuard)
 	@UseGuards(CheckSelfUserActionGuard)
 	@UseGuards(AuthenticatedGuard)
 	@Patch("/updateInfo")
-	public async updateUserInfo(
-		@Body() updateUserData: UpdateUserData,
-	) {
-		return this.userService.updateUserInformation(updateUserData)[0];
+	public async updateUserInfo(@Body() updateUserData: UpdateUserData) {
+		return this.userService.updateUserInformation(updateUserData);
 	}
 
 	@UseGuards(CheckSelfUserActionGuard)
 	@UseGuards(AuthenticatedGuard)
 	@Patch("/updatePassword")
 	public async updatePassword(
-		@Request() request,
+		@Request() request: any,
 		@Body() updatePasswordData: UpdateUserPasswordData,
 	) {
 		const adminActions = {
@@ -101,7 +101,7 @@ export class UserController {
 	@UseGuards(AuthenticatedGuard)
 	@Delete("/deleteUser")
 	public async DeleteUserData(
-		@Request() request,
+		@Request() request: any,
 		@Body() deleteUserData: DeleteUserData,
 	) {
 		const result = await this.userService.deleteUser(

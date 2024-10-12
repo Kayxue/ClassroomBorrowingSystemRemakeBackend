@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { ClassroomService } from "./classroom.service";
-import { ClassroomController } from "./classroom.controller";
-import { DrizzleORMUrl, MySQLConfig } from "src/Config";
-import * as schema from "../drizzle/schema";
+import { ClassroomService } from "./classroom.service.ts";
+import { ClassroomController } from "./classroom.controller.ts";
+import { DrizzleORMUrl, MySQLConfig } from "../Config.ts";
+import * as schema from "../drizzle/schema.ts";
 import { DrizzleMySqlModule } from "@knaadh/nestjs-drizzle-mysql2";
 
 @Module({

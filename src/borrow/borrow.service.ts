@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
-import * as schema from "../drizzle/schema";
-import { InsertBorrowData } from "src/Types/RequestBody.dto";
-import { MySql2Database } from "drizzle-orm/mysql2";
+import * as schema from "../drizzle/schema.ts";
+import { InsertBorrowData } from "../Types/RequestBody.dto.ts";
+import { type MySql2Database } from "drizzle-orm/mysql2";
 import { eq } from "drizzle-orm";
 
 @Injectable()

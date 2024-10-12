@@ -4,7 +4,7 @@ import {
 	ForbiddenException,
 	Injectable,
 } from "@nestjs/common";
-import { Roles } from "../Types/Types";
+import { Roles } from "../Types/Types.ts";
 
 @Injectable()
 export class CheckSelfUserActionGuard implements CanActivate {

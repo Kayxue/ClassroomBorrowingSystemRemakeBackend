@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from "@nestjs/common";
 
 @Injectable()
-export class CheckModifySelfRoleGuard implements CanActivate {
+export class CheckModifySelfDepartmentGuard implements CanActivate {
 	public canActivate(context: ExecutionContext) {
 		const request = context.switchToHttp().getRequest();
 		const { body, user } = request;
