@@ -1,15 +1,15 @@
-import { Module } from '@nestjs/common';
-import { DepartmentController } from './department.controller.ts';
-import { DepartmentService } from './department.service.ts';
+import { Module } from "@nestjs/common";
+import { DepartmentController } from "./department.controller.ts";
+import { DepartmentService } from "./department.service.ts";
 import { DrizzleMySqlModule } from "@knaadh/nestjs-drizzle-mysql2";
 import { MySQLConfig } from "../Config.ts";
 import * as schema from "../drizzle/schema.ts";
 
 @Module({
-  controllers: [DepartmentController],
-  providers: [DepartmentService],
-  imports:[
-    DrizzleMySqlModule.register({
+	controllers: [DepartmentController],
+	providers: [DepartmentService],
+	imports: [
+		DrizzleMySqlModule.register({
 			tag: "drizzledb",
 			mysql: {
 				connection: "client",
@@ -19,6 +19,6 @@ import * as schema from "../drizzle/schema.ts";
 			},
 			config: { schema: { ...schema }, mode: "default" },
 		}),
-  ]
+	],
 })
 export class DepartmentModule {}

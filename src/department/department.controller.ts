@@ -8,7 +8,6 @@ import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
 export class DepartmentController {
 	public constructor(private departmentService: DepartmentService) {}
 
-	
 	@Post("/addDepartment")
 	public async addDepartment(@Body() departmentData: InsertDepartmentData) {
 		return this.departmentService.insertDepartment(departmentData);

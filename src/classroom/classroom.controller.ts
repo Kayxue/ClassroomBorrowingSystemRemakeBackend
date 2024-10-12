@@ -13,7 +13,6 @@ import {
 import { ClassroomService } from "./classroom.service.ts";
 import {
 	DeleteClassroomData,
-	GetClassroomData,
 	InsertClassroomData,
 	UpdateClassroomData,
 } from "../Types/RequestBody.dto.ts";
