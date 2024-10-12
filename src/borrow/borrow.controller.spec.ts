@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BorrowController } from './borrow.controller';
+import { BorrowController } from './borrow.controller.ts';
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
 describe('BorrowController', () => {
   let controller: BorrowController;
