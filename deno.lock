@@ -1,9 +1,7 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@std/bytes@^1.0.2": "1.0.2",
     "jsr:@std/dotenv@*": "0.225.2",
-    "jsr:@std/io@0.225": "0.225.0",
     "npm:@knaadh/nestjs-drizzle-mysql2@^1.0.1": "1.0.1_@nestjs+common@10.4.4__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_drizzle-orm@0.34.1__mysql2@3.11.3_mysql2@3.11.3_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
     "npm:@nestjs/cli@^10.4.5": "10.4.5_chokidar@3.6.0_typescript@5.3.3_webpack@5.94.0__acorn@8.12.1",
     "npm:@nestjs/common@^10.4.4": "10.4.4_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
@@ -46,17 +44,8 @@
     "npm:ts-loader@^9.5.1": "9.5.1_typescript@5.3.3_webpack@5.94.0__acorn@8.12.1"
   },
   "jsr": {
-    "@std/bytes@1.0.2": {
-      "integrity": "fbdee322bbd8c599a6af186a1603b3355e59a5fb1baa139f8f4c3c9a1b3e3d57"
-    },
     "@std/dotenv@0.225.2": {
       "integrity": "e2025dce4de6c7bca21dece8baddd4262b09d5187217e231b033e088e0c4dd23"
-    },
-    "@std/io@0.225.0": {
-      "integrity": "c1db7c5e5a231629b32d64b9a53139445b2ca640d828c26bf23e1c55f8c079b3",
-      "dependencies": [
-        "jsr:@std/bytes"
-      ]
     }
   },
   "npm": {
@@ -4537,9 +4526,6 @@
     }
   },
   "workspace": {
-    "dependencies": [
-      "jsr:@std/io@0.225"
-    ],
     "packageJson": {
       "dependencies": [
         "npm:@knaadh/nestjs-drizzle-mysql2@^1.0.1",
