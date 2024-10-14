@@ -20,8 +20,6 @@
         "npm:@nestjs/schematics@^10.1.4",
         "npm:@nestjs/swagger@^7.4.2",
         "npm:@nestjs/testing@^10.4.4",
-        "npm:@swc/cli@~0.1.65",
-        "npm:@swc/core@^1.7.35",
         "npm:@types/express-session@^1.18.0",
         "npm:@types/express@^4.17.21",
         "npm:@types/jest@^29.5.13",
