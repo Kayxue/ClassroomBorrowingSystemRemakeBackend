@@ -1,8 +1,4 @@
-import {
-	BadRequestException,
-	Inject,
-	Injectable,
-} from "@nestjs/common";
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import {
 	DeleteUserData,
 	InsertUserData,
@@ -15,7 +11,7 @@ import {
 	passwordSecret,
 	saltTimeCount,
 } from "../Config.ts";
-import { IAdminActionData, Roles } from "../Types/Types.ts";
+import { IAdminActionData } from "../Types/Types.ts";
 import { type MySql2Database } from "drizzle-orm/mysql2";
 import * as schema from "../drizzle/schema.ts";
 import { eq } from "drizzle-orm";
