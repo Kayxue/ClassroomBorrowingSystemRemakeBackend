@@ -1,7 +1,8 @@
 {
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "strict": false
-    }
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": false
+  },
+  "imports": { "@std/io": "jsr:@std/io@^0.225.0" }
 }
