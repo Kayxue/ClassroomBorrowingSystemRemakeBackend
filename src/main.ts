@@ -4,7 +4,7 @@ import { ValidationPipe } from "@nestjs/common";
 import expressSession from "express-session";
 import passport from "passport";
 import { sessionSecret } from "./Config.ts";
-import "jsr:@std/dotenv/load";
+import "@std/dotenv/load";
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, {

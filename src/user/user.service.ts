@@ -5,7 +5,7 @@ import {
 	UpdateUserData,
 	UpdateUserPasswordData,
 } from "../Types/RequestBody.dto.ts";
-import * as argon2 from "argon2";
+import * as argon2 from "@felix/argon2";
 import {
 	passwordParallelism,
 	passwordSecret,
@@ -24,9 +24,11 @@ export class UserService {
 
 	public async insertUser(insertUserObj: InsertUserData) {
 		const hashedPassword = await argon2.hash(insertUserObj.password, {
+			variant:argon2.Variant.Argon2id,
+			version:argon2.Version.V13,
 			timeCost: saltTimeCount,
 			secret: passwordSecret,
-			parallelism: passwordParallelism,
+			lanes: passwordParallelism,
 		});
 		return this.drizzledb
 			.insert(schema.user)
@@ -84,17 +86,19 @@ export class UserService {
 			const oldPasswordMatch = await argon2.verify(
 				user!.password,
 				oldPassword,
-				{
-					secret: passwordSecret,
-				},
+
+					passwordSecret,
+
 			);
 			if (!oldPasswordMatch) throw new BadRequestException("舊密碼錯誤");
 			if (oldPassword === newPassword)
 				throw new BadRequestException("新舊密碼一致");
 			const newHashedPassword = await argon2.hash(newPassword, {
+				variant:argon2.Variant.Argon2id,
+				version:argon2.Version.V13,
 				timeCost: saltTimeCount,
 				secret: passwordSecret,
-				parallelism: passwordParallelism,
+				lanes: passwordParallelism,
 			});
 			return this.drizzledb
 				.update(schema.user)
@@ -107,14 +111,16 @@ export class UserService {
 			const adminPasswordCorrect = await argon2.verify(
 				admin!.password,
 				oldPassword,
-				{ secret: passwordSecret },
+				passwordSecret ,
 			);
 			if (!adminPasswordCorrect)
 				throw new BadRequestException("管理員密碼錯誤");
 			const newHashedPassword = await argon2.hash(newPassword, {
+				variant:argon2.Variant.Argon2id,
+				version:argon2.Version.V13,
 				timeCost: saltTimeCount,
 				secret: passwordSecret,
-				parallelism: passwordParallelism,
+				lanes: passwordParallelism,
 			});
 			return this.drizzledb
 				.update(schema.user)

@@ -3,5 +3,15 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strict": false
+  },
+  "imports": {
+    "@felix/argon2": "jsr:@felix/argon2@^2.0.1",
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.2"
+  },
+  "tasks": {
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "deno run -A ./src/main.ts",
+    "dev": "deno run -A --watch ./src/main.ts",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   }
 }
