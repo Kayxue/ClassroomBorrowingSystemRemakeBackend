@@ -184,3 +184,19 @@ export class InsertDepartmentData {
 	@IsNotEmpty()
 	public readonly location: string;
 }
+
+export class UpdateDepartmentData extends BaseDepartmentRequestData{
+	@IsString()
+	@IsOptional()
+	public readonly name?: string;
+
+	@IsString()
+	@IsOptional()
+	public readonly description?: string;
+
+	@IsString()
+	@IsOptional()
+	public readonly location?: string;
+}
+
+export class DeleteDepartmentData extends BaseDepartmentRequestData {}
