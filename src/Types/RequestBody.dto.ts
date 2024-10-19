@@ -17,8 +17,6 @@ export class BaseUserRequestData {
 	public readonly userId: string;
 }
 
-export class GetUserData extends BaseUserRequestData {}
-
 export class InsertUserData {
 	@IsString()
 	@IsNotEmpty()
@@ -98,8 +96,6 @@ export class BaseClassroomRequestData {
 	@IsNotEmpty()
 	public readonly classroomId: string;
 }
-
-export class GetClassroomData extends BaseClassroomRequestData {}
 
 export class InsertClassroomData {
 	@IsString()
