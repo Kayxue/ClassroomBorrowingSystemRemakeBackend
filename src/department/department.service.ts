@@ -13,7 +13,7 @@ export class DepartmentService {
 		@Inject("drizzledb") private drizzledb: MySql2Database<typeof schema>,
 	) {}
 
-	public async insertDepartment(data: InsertDepartmentData) {
+	public insertDepartment(data: InsertDepartmentData) {
 		return this.drizzledb
 			.insert(schema.department)
 			.values({ ...data })
