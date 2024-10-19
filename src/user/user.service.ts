@@ -38,14 +38,14 @@ export class UserService {
 			});
 	}
 
-	public async getUser(username: string, withBorrowData: boolean) {
+	public getUser(username: string, withBorrowData: boolean) {
 		return this.drizzledb.query.user.findFirst({
 			where: eq(schema.user.username, username),
 			with: { borrows: withBorrowData || undefined },
 		});
 	}
 
-	public async getUserById(id: string, withBorrowData: boolean | undefined) {
+	public getUserById(id: string, withBorrowData: boolean | undefined) {
 		return this.drizzledb.query.user.findFirst({
 			where: eq(schema.user.id, id),
 			with: { borrows: withBorrowData || undefined },
@@ -59,7 +59,7 @@ export class UserService {
 		});
 	}
 
-	public async updateUserInformation(updateUserData: UpdateUserData) {
+	public updateUserInformation(updateUserData: UpdateUserData) {
 		const { userId, ...restUpdatedUserData } = updateUserData;
 		return this.drizzledb
 			.update(schema.user)

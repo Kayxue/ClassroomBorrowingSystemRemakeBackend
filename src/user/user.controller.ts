@@ -11,6 +11,7 @@ import {
 	Query,
 	Request,
 	UseGuards,
+	Session,
 } from "@nestjs/common";
 import { UserService } from "./user.service.ts";
 import {
@@ -26,6 +27,8 @@ import { CheckSelfUserActionGuard } from "./user.checkSelfAction.guard.ts";
 import { CheckModifySelfRoleGuard } from "./user.checkModifySelfRole.guard.ts";
 import { partActionsLoginRequiredGuard } from "../auth/user.partActionsLoginRequired.guard.ts";
 import { CheckModifySelfDepartmentGuard } from "./user.checkModifySelfDepartment.guard.ts";
+// @deno-types="npm:@types/express"
+import express from "express";
 
 @Controller("user")
 export class UserController {
@@ -38,13 +41,13 @@ export class UserController {
 
 	@UseGuards(LocalAuthGuard)
 	@Post("/login")
-	public login(@Request() request: any) {
+	public login(@Request() request: express.Request) {
 		return request.user;
 	}
 
 	@Get("/logout")
-	public logout(@Request() request: any) {
-		request.session.destroy();
+	public logout(@Session() session: any) {
+		session.destroy();
 		return "Logged out";
 	}
 
@@ -57,7 +60,7 @@ export class UserController {
 	@UseGuards(new partActionsLoginRequiredGuard(["borrow", true]))
 	@Get("/getUser/:id")
 	public async getUser(
-		@Param("id") userId: any,
+		@Param("id") userId: string,
 		@Query("borrow", new ParseBoolPipe({ optional: true })) getBorrow?: boolean,
 	) {
 		const o = await this.userService.getUserById(userId, getBorrow);
