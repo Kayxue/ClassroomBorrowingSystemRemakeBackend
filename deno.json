@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "isolatedDeclarations": true,
+    "noFallthroughCasesInSwitch": false,
+    "strictBindCallApply": false,
+    "noImplicitAny": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strict": false
