@@ -10,7 +10,26 @@
   },
   "imports": {
     "@felix/argon2": "jsr:@felix/argon2@^2.0.1",
-    "@std/dotenv": "jsr:@std/dotenv@^0.225.2"
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.2",
+    "@knaadh/nestjs-drizzle-mysql2": "npm:@knaadh/nestjs-drizzle-mysql2@^1.0.1",
+    "@nestjs/common": "npm:@nestjs/common@^10.4.5",
+    "@nestjs/core": "npm:@nestjs/core@^10.4.5",
+    "@nestjs/passport": "npm:@nestjs/passport@^10.0.3",
+    "@nestjs/platform-express": "npm:@nestjs/platform-express@^10.4.5",
+    "@nestjs/swagger": "npm:@nestjs/swagger@^7.4.2",
+    "@types/express-session": "npm:@types/express-session@^1.18.0",
+    "class-transformer": "npm:class-transformer@^0.5.1",
+    "class-validator": "npm:class-validator@^0.14.1",
+    "drizzle-orm": "npm:drizzle-orm@^0.34.1",
+    "express": "npm:express@^4.21.1",
+    "express-session": "npm:express-session@^1.18.1",
+    "mysql2": "npm:mysql2@^3.11.3",
+    "nanoid": "npm:nanoid@^5.0.7",
+    "passport": "npm:passport@^0.7.0",
+    "passport-local": "npm:passport-local@^1.0.0",
+    "reflect-metadata": "npm:reflect-metadata@^0.1.14",
+    "rxjs": "npm:rxjs@^7.8.1",
+    "swagger-ui-express": "npm:swagger-ui-express@^5.0.1"
   },
   "tasks": {
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

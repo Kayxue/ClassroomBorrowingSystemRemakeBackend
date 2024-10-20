@@ -2725,7 +2725,26 @@
   "workspace": {
     "dependencies": [
       "jsr:@felix/argon2@^2.0.1",
-      "jsr:@std/dotenv@~0.225.2"
+      "jsr:@std/dotenv@~0.225.2",
+      "npm:@knaadh/nestjs-drizzle-mysql2@^1.0.1",
+      "npm:@nestjs/common@^10.4.5",
+      "npm:@nestjs/core@^10.4.5",
+      "npm:@nestjs/passport@^10.0.3",
+      "npm:@nestjs/platform-express@^10.4.5",
+      "npm:@nestjs/swagger@^7.4.2",
+      "npm:@types/express-session@^1.18.0",
+      "npm:class-transformer@~0.5.1",
+      "npm:class-validator@~0.14.1",
+      "npm:drizzle-orm@~0.34.1",
+      "npm:express-session@^1.18.1",
+      "npm:express@^4.21.1",
+      "npm:mysql2@^3.11.3",
+      "npm:nanoid@^5.0.7",
+      "npm:passport-local@1",
+      "npm:passport@0.7",
+      "npm:reflect-metadata@~0.1.14",
+      "npm:rxjs@^7.8.1",
+      "npm:swagger-ui-express@^5.0.1"
     ],
     "packageJson": {
       "dependencies": [
