@@ -12,11 +12,15 @@ export class BorrowService {
 
     public async insertBorrow(borrowData: InsertBorrowData) {
 		//Fuck!!!!!!!!!!!!!!!!
-
 		const { userId, startTime, endTime, from, to, classroomId } = borrowData;
 		const allBorrowOfClassroom = await this.drizzledb.query.borrowing.findMany({
 			where: eq(schema.borrowing.classroomId, classroomId),
 		});
+
+		if (startTime.getTime() > endTime.getTime() || from > to)
+		{
+			throw new BadRequestException('Error Input');
+		}
 
 		const overlappingBorrows = allBorrowOfClassroom.filter((e) => {
 			if (e.startTime !== null && e.endTime !== null) {
@@ -25,19 +29,17 @@ export class BorrowService {
 				const timeOverlap = startTime.getTime() < existingEndTime.getTime() && endTime.getTime() > existingStartTime.getTime();
 				const periodOverlap = (to >= e.from && from <= e.to);
 
-				if (startTime.getTime() > endTime.getTime() || endTime.getTime() > startTime.getTime())
-				{
-					return true;
-				}
-
 				if (startTime.getTime() == existingEndTime.getTime() || endTime.getTime() == existingStartTime.getTime() ||
 					startTime.getTime() == existingStartTime.getTime() || endTime.getTime() == existingEndTime.getTime())
 				{
 					if (periodOverlap)
+					{
 						return true;
+					}
 				}
 
-				if (timeOverlap && periodOverlap) {
+				if (timeOverlap && periodOverlap) 
+				{
 					return true;
 				}
 			}
