@@ -165,6 +165,8 @@ export class InsertBorrowData {
 	public readonly classroomId: string;
 }
 
+export class DeleteBorrowData extends BaseBorrowRequestData {}
+
 export class BaseDepartmentRequestData {
 	@IsString()
 	@IsNotEmpty()
