@@ -13,24 +13,27 @@ export class BorrowService {
     public async insertBorrow(borrowData: InsertBorrowData) {
 		//Fuck!!!!!!!!!!!!!!!!
 		const { userId, startTime, endTime, from, to, classroomId } = borrowData;
-		const allBorrowOfClassroom = await this.drizzledb.query.borrowing.findMany({
-			where: eq(schema.borrowing.classroomId, classroomId),
-		});
+		const startTimeMs = startTime.getTime();
+    	const endTimeMs = endTime.getTime();
 
-		if (startTime.getTime() > endTime.getTime() || from > to)
+		if (startTimeMs > endTimeMs || from > to)
 		{
 			throw new BadRequestException('Error Input');
 		}
 
+		const allBorrowOfClassroom = await this.drizzledb.query.borrowing.findMany({
+			where: eq(schema.borrowing.classroomId, classroomId),
+		});
+
 		const overlappingBorrows = allBorrowOfClassroom.filter((e) => {
 			if (e.startTime !== null && e.endTime !== null) {
-				const existingStartTime = new Date(e.startTime);
-				const existingEndTime = new Date(e.endTime);
-				const timeOverlap = startTime.getTime() < existingEndTime.getTime() && endTime.getTime() > existingStartTime.getTime();
+				const existingStartTimeMs = new Date(e.startTime).getTime();
+            	const existingEndTimeMs = new Date(e.endTime).getTime();
+				const timeOverlap = startTimeMs < existingEndTimeMs && endTimeMs > existingStartTimeMs;
 				const periodOverlap = (to >= e.from && from <= e.to);
 
-				if (startTime.getTime() == existingEndTime.getTime() || endTime.getTime() == existingStartTime.getTime() ||
-					startTime.getTime() == existingStartTime.getTime() || endTime.getTime() == existingEndTime.getTime())
+				if (startTimeMs == existingEndTimeMs || endTimeMs == existingStartTimeMs ||
+				startTimeMs == existingStartTimeMs || endTimeMs == existingEndTimeMs)
 				{
 					if (periodOverlap)
 					{
