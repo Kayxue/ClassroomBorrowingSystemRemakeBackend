@@ -12,9 +12,9 @@ export class BorrowController {
 	@UseGuards(CheckSelfUserActionGuard)
 	@UseGuards(AuthenticatedGuard)
 	@Post("/insertBorrow")
-	public async insertBorrow(@Body() borrowData: InsertBorrowData) {
-		return this.borrowService.insertBorrow(borrowData);
-	}
+    public async createBorrow(@Body() borrowData: InsertBorrowData) {
+        return await this.borrowService.insertBorrow(borrowData);
+    }
 
 	//TODO: Update Borrow Record
 	//TODO: Delete Borrow Record
