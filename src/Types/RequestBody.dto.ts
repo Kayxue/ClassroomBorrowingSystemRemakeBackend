@@ -9,7 +9,7 @@ import {
 	Min,
 } from "class-validator";
 import { Roles } from "./Types.ts";
-import { Transform } from "class-transformer";
+import { Type } from "class-transformer";
 
 export class BaseUserRequestData {
 	@IsString()
@@ -140,12 +140,12 @@ export class InsertBorrowData {
 
 	@IsDate()
 	@IsNotEmpty()
-	@Transform(() => Date)
+	@Type(() => Date)
 	public readonly startTime: Date;
 
 	@IsDate()
 	@IsNotEmpty()
-	@Transform(() => Date)
+	@Type(() => Date)
 	public readonly endTime: Date;
 
 	@IsInt()
@@ -158,12 +158,14 @@ export class InsertBorrowData {
 	@IsNotEmpty()
 	@Max(7)
 	@Min(0)
-	public readonly to: Date;
+	public readonly to: number;
 
 	@IsString()
 	@IsNotEmpty()
 	public readonly classroomId: string;
 }
+
+export class DeleteBorrowData extends BaseBorrowRequestData {}
 
 export class BaseDepartmentRequestData {
 	@IsString()
