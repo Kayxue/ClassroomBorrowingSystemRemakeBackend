@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { UserService } from "../user/user.service.ts";
-import * as argon2 from "@felix/argon2";
+import * as argon2 from "jsr:@felix/argon2";
 import { passwordSecret } from "../Config.ts";
 
 @Injectable()

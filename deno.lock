@@ -2,20 +2,19 @@
   "version": "4",
   "specifiers": {
     "jsr:@denosaurs/plug@^1.0.6": "1.0.6",
-    "jsr:@felix/argon2@^2.0.1": "2.0.1",
+    "jsr:@felix/argon2@*": "2.0.2",
+    "jsr:@felix/argon2@^2.0.2": "2.0.2",
     "jsr:@std/assert@0.221": "0.221.0",
-    "jsr:@std/dotenv@~0.225.2": "0.225.2",
+    "jsr:@std/dotenv@*": "0.225.2",
     "jsr:@std/encoding@0.221": "0.221.0",
     "jsr:@std/fmt@0.221": "0.221.0",
     "jsr:@std/fs@0.221": "0.221.0",
     "jsr:@std/path@0.221": "0.221.0",
-    "npm:@knaadh/nestjs-drizzle-mysql2@^1.0.1": "1.0.1_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_drizzle-orm@0.34.1__mysql2@3.11.3_mysql2@3.11.3_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
-    "npm:@knaadh/nestjs-drizzle-mysql2@^1.1.0": "1.1.0_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_drizzle-orm@0.34.1__mysql2@3.11.3_mysql2@3.11.3_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
+    "npm:@knaadh/nestjs-drizzle-mysql2@^1.2.0": "1.2.0_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_drizzle-orm@0.36.1__mysql2@3.11.3_mysql2@3.11.3_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
     "npm:@nestjs/cli@^10.4.5": "10.4.5_chokidar@3.6.0_typescript@5.3.3_webpack@5.94.0__acorn@8.13.0",
     "npm:@nestjs/common@^10.4.4": "10.4.5_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
     "npm:@nestjs/common@^10.4.5": "10.4.5_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
     "npm:@nestjs/common@^10.4.6": "10.4.6_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
-    "npm:@nestjs/core@^10.4.5": "10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+platform-express@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+core@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_reflect-metadata@0.1.14_rxjs@7.8.1_class-transformer@0.5.1_class-validator@0.14.1",
     "npm:@nestjs/core@^10.4.6": "10.4.6_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+platform-express@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+core@10.4.5___@nestjs+common@10.4.5____class-transformer@0.5.1____class-validator@0.14.1____reflect-metadata@0.1.14____rxjs@7.8.1___@nestjs+platform-express@10.4.5___reflect-metadata@0.1.14___rxjs@7.8.1___class-transformer@0.5.1___class-validator@0.14.1__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_reflect-metadata@0.1.14_rxjs@7.8.1_class-transformer@0.5.1_class-validator@0.14.1",
     "npm:@nestjs/passport@^10.0.3": "10.0.3_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_passport@0.7.0_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
     "npm:@nestjs/platform-express@^10.4.4": "10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+core@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+platform-express@10.4.5__reflect-metadata@0.1.14__rxjs@7.8.1__class-transformer@0.5.1__class-validator@0.14.1_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
@@ -35,12 +34,10 @@
     "npm:class-transformer@~0.5.1": "0.5.1",
     "npm:class-validator@~0.14.1": "0.14.1",
     "npm:drizzle-kit@~0.27.1": "0.27.1_esbuild@0.19.12",
-    "npm:drizzle-orm@0.36": "0.36.0_mysql2@3.11.3",
-    "npm:drizzle-orm@~0.34.1": "0.34.1_mysql2@3.11.3",
+    "npm:drizzle-orm@~0.36.1": "0.36.1_mysql2@3.11.3",
     "npm:express-session@^1.18.1": "1.18.1",
     "npm:express@^4.21.1": "4.21.1",
     "npm:mysql2@^3.11.3": "3.11.3",
-    "npm:nanoid@^5.0.7": "5.0.7",
     "npm:nanoid@^5.0.8": "5.0.8",
     "npm:passport-local@1": "1.0.0",
     "npm:passport@0.7": "0.7.0",
@@ -65,8 +62,8 @@
         "jsr:@std/path"
       ]
     },
-    "@felix/argon2@2.0.1": {
-      "integrity": "e62fb1097d8776f640dd674d8cd577a931c65ee39793a9ae8242562318e396c8",
+    "@felix/argon2@2.0.2": {
+      "integrity": "2e026d58c86ad4734cf92c30f579430dfa65235f7ac0c3dd5a9383faec0ce1d1",
       "dependencies": [
         "jsr:@denosaurs/plug"
       ]
@@ -403,22 +400,12 @@
         "@jridgewell/sourcemap-codec"
       ]
     },
-    "@knaadh/nestjs-drizzle-mysql2@1.0.1_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_drizzle-orm@0.34.1__mysql2@3.11.3_mysql2@3.11.3_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1": {
-      "integrity": "sha512-8Bhstsi4qRA8mgR3AS2pBVD0rMNabVLusOdrFef6yT5UJHx8zTjcD5XFmkQv2VETsSJc0Jh7e3PkL1cPpQ+grw==",
+    "@knaadh/nestjs-drizzle-mysql2@1.2.0_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_drizzle-orm@0.36.1__mysql2@3.11.3_mysql2@3.11.3_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1": {
+      "integrity": "sha512-tst2B0mPQI02mJeHo44ConXYGOSOcg/9Ln89AB2dYK7zqzLRaFoZJMeDCzXeCrcxQy9nrc1ffys3E2GUbPLotw==",
       "dependencies": [
         "@nestjs/common@10.4.5_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
-        "drizzle-orm@0.34.1_mysql2@3.11.3",
-        "mysql2",
-        "tslib"
-      ]
-    },
-    "@knaadh/nestjs-drizzle-mysql2@1.1.0_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_drizzle-orm@0.34.1__mysql2@3.11.3_mysql2@3.11.3_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1": {
-      "integrity": "sha512-OcjnN3icC+vvuLGONVia1h6jOce8EBsWcFBD1Bs0tYiPdB1fdCP42cHhIqMu/vBsaNzDt4KXkvtaCTzVhq/y4w==",
-      "dependencies": [
-        "@nestjs/common@10.4.5_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
-        "drizzle-orm@0.34.1_mysql2@3.11.3",
-        "mysql2",
-        "tslib"
+        "drizzle-orm",
+        "mysql2"
       ]
     },
     "@ljharb/through@2.3.13": {
@@ -496,21 +483,6 @@
         "uid"
       ]
     },
-    "@nestjs/core@10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+platform-express@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+core@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_reflect-metadata@0.1.14_rxjs@7.8.1_class-transformer@0.5.1_class-validator@0.14.1": {
-      "integrity": "sha512-wk0KJ+6tuidqAdeemsQ40BCp1BgMsSuSLG577aqXLxXYoa8FQYPrdxoSzd05znYLwJYM55fisZWb3FLF9HT2qw==",
-      "dependencies": [
-        "@nestjs/common@10.4.5_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
-        "@nestjs/platform-express@10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+core@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+platform-express@10.4.5___@nestjs+common@10.4.5____class-transformer@0.5.1____class-validator@0.14.1____reflect-metadata@0.1.14____rxjs@7.8.1___@nestjs+core@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__reflect-metadata@0.1.14__rxjs@7.8.1__class-transformer@0.5.1__class-validator@0.14.1_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
-        "@nuxtjs/opencollective",
-        "fast-safe-stringify",
-        "iterare",
-        "path-to-regexp@3.3.0",
-        "reflect-metadata",
-        "rxjs",
-        "tslib",
-        "uid"
-      ]
-    },
     "@nestjs/core@10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+platform-express@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+core@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_reflect-metadata@0.1.14_rxjs@7.8.1_class-transformer@0.5.1_class-validator@0.14.1_@nestjs+platform-express@10.4.6__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+core@10.4.5___@nestjs+common@10.4.5____class-transformer@0.5.1____class-validator@0.14.1____reflect-metadata@0.1.14____rxjs@7.8.1___@nestjs+platform-express@10.4.5____@nestjs+common@10.4.5_____class-transformer@0.5.1_____class-validator@0.14.1_____reflect-metadata@0.1.14_____rxjs@7.8.1____@nestjs+core@10.4.5____class-transformer@0.5.1____class-validator@0.14.1____reflect-metadata@0.1.14____rxjs@7.8.1___reflect-metadata@0.1.14___rxjs@7.8.1___class-transformer@0.5.1___class-validator@0.14.1__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1": {
       "integrity": "sha512-wk0KJ+6tuidqAdeemsQ40BCp1BgMsSuSLG577aqXLxXYoa8FQYPrdxoSzd05znYLwJYM55fisZWb3FLF9HT2qw==",
       "dependencies": [
@@ -555,18 +527,6 @@
       "dependencies": [
         "@nestjs/common@10.4.5_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
         "passport"
-      ]
-    },
-    "@nestjs/platform-express@10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+core@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+platform-express@10.4.5___@nestjs+common@10.4.5____class-transformer@0.5.1____class-validator@0.14.1____reflect-metadata@0.1.14____rxjs@7.8.1___@nestjs+core@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__reflect-metadata@0.1.14__rxjs@7.8.1__class-transformer@0.5.1__class-validator@0.14.1_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1": {
-      "integrity": "sha512-a629r8R8KC4skhdieQ0aIWH5vDBUFntWnWKFyDXQrll6/CllSchfWm87mWF39seaW6bXYtQtAEZY66JrngdrGA==",
-      "dependencies": [
-        "@nestjs/common@10.4.5_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1",
-        "@nestjs/core@10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+platform-express@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+core@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_reflect-metadata@0.1.14_rxjs@7.8.1_class-transformer@0.5.1_class-validator@0.14.1",
-        "body-parser",
-        "cors",
-        "express",
-        "multer",
-        "tslib"
       ]
     },
     "@nestjs/platform-express@10.4.5_@nestjs+common@10.4.5__class-transformer@0.5.1__class-validator@0.14.1__reflect-metadata@0.1.14__rxjs@7.8.1_@nestjs+core@10.4.5__@nestjs+common@10.4.5___class-transformer@0.5.1___class-validator@0.14.1___reflect-metadata@0.1.14___rxjs@7.8.1__@nestjs+platform-express@10.4.5__reflect-metadata@0.1.14__rxjs@7.8.1__class-transformer@0.5.1__class-validator@0.14.1_class-transformer@0.5.1_class-validator@0.14.1_reflect-metadata@0.1.14_rxjs@7.8.1": {
@@ -1380,14 +1340,8 @@
         "esbuild-register"
       ]
     },
-    "drizzle-orm@0.34.1_mysql2@3.11.3": {
-      "integrity": "sha512-t+zCwyWWt8xTqtYV4doE/xYmT7hpv1L8pQ66zddEz+3VWyedBBtctjMAp22mAJPfyWurRQXUJ1nrTtqLq+DqNA==",
-      "dependencies": [
-        "mysql2"
-      ]
-    },
-    "drizzle-orm@0.36.0_mysql2@3.11.3": {
-      "integrity": "sha512-6BETYPdKSR7cDHC0ZfqZk2VrKJ8n/Rfd3ajFPsAbc69gi87nwZ6oBA2wUGMELHA0tQE4kUKN0Ds00LUZQ6Z69A==",
+    "drizzle-orm@0.36.1_mysql2@3.11.3": {
+      "integrity": "sha512-F4hbimnMEhyWzDowQB4xEuVJJWXLHZYD7FYwvo8RImY+N7pStGqsbfmT95jDbec1s4qKmQbiuxEDZY90LRrfIw==",
       "dependencies": [
         "mysql2"
       ]
@@ -2093,9 +2047,6 @@
       "dependencies": [
         "lru-cache@7.18.3"
       ]
-    },
-    "nanoid@5.0.7": {
-      "integrity": "sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ=="
     },
     "nanoid@5.0.8": {
       "integrity": "sha512-TcJPw+9RV9dibz1hHUzlLVy8N4X9TnwirAjrU08Juo6BNKggzVfP2ZJ/3ZUSq15Xl5i85i+Z89XBO90pB2PghQ=="
@@ -2821,31 +2772,11 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@felix/argon2@^2.0.1",
-      "jsr:@std/dotenv@~0.225.2",
-      "npm:@knaadh/nestjs-drizzle-mysql2@^1.0.1",
-      "npm:@nestjs/common@^10.4.5",
-      "npm:@nestjs/core@^10.4.5",
-      "npm:@nestjs/passport@^10.0.3",
-      "npm:@nestjs/platform-express@^10.4.5",
-      "npm:@nestjs/swagger@^7.4.2",
-      "npm:@types/express-session@^1.18.0",
-      "npm:class-transformer@~0.5.1",
-      "npm:class-validator@~0.14.1",
-      "npm:drizzle-orm@~0.34.1",
-      "npm:express-session@^1.18.1",
-      "npm:express@^4.21.1",
-      "npm:mysql2@^3.11.3",
-      "npm:nanoid@^5.0.7",
-      "npm:passport-local@1",
-      "npm:passport@0.7",
-      "npm:reflect-metadata@~0.1.14",
-      "npm:rxjs@^7.8.1",
-      "npm:swagger-ui-express@^5.0.1"
+      "jsr:@felix/argon2@^2.0.2"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@knaadh/nestjs-drizzle-mysql2@^1.1.0",
+        "npm:@knaadh/nestjs-drizzle-mysql2@^1.2.0",
         "npm:@nestjs/cli@^10.4.5",
         "npm:@nestjs/common@^10.4.6",
         "npm:@nestjs/core@^10.4.6",
@@ -2862,7 +2793,7 @@
         "npm:class-transformer@~0.5.1",
         "npm:class-validator@~0.14.1",
         "npm:drizzle-kit@~0.27.1",
-        "npm:drizzle-orm@0.36",
+        "npm:drizzle-orm@~0.36.1",
         "npm:express-session@^1.18.1",
         "npm:express@^4.21.1",
         "npm:mysql2@^3.11.3",

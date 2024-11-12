@@ -4,15 +4,15 @@ import { ValidationPipe } from "@nestjs/common";
 import expressSession from "express-session";
 import passport from "passport";
 import { sessionSecret } from "./Config.ts";
-import "@std/dotenv/load";
+import "jsr:@std/dotenv/load";
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, {
 		cors: { origin: true, credentials: true },
-		httpsOptions: {
-			cert: Deno.readTextFileSync("./src/secret/public-key.pem"),
-			key: Deno.readTextFileSync("./src/secret/private-key.pem"),
-		},
+		// httpsOptions: {
+		// 	cert: Deno.readTextFileSync("./src/secret/public-key.pem"),
+		// 	key: Deno.readTextFileSync("./src/secret/private-key.pem"),
+		// },
 	});
 	app.useGlobalPipes(
 		new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
