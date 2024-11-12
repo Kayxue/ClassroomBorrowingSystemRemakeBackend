@@ -5,6 +5,7 @@ import * as schema from "../drizzle/schema.ts";
 import type {
 	DeleteDepartmentData,
 	InsertDepartmentData,
+	UpdateDepartmentData,
 } from "../Types/RequestBody.dto.ts";
 
 @Injectable()
@@ -31,5 +32,18 @@ export class DepartmentService {
 			.delete(schema.department)
 			.where(eq(schema.department.id, department.id));
 		return "Department deleted"
+	}
+
+	public async updateDepartment(data: UpdateDepartmentData) {
+		const department = await this.drizzledb.query.department.findFirst({
+			where: eq(schema.department.id, data.departmentId),
+		});
+		if (!department) throw new BadRequestException("找不到部門");
+
+		await this.drizzledb
+			.update(schema.department)
+			.set({ ...data })
+			.where(eq(schema.department.id, data.departmentId));
+		return "Department updated";
 	}
 }

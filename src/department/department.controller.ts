@@ -3,6 +3,7 @@ import { DepartmentService } from "./department.service.ts";
 import type {
 	DeleteDepartmentData,
 	InsertDepartmentData,
+	UpdateDepartmentData,
 } from "../Types/RequestBody.dto.ts";
 import { RequireAdminGuard } from "../user/user.requireAdminGuard.guard.ts";
 import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
@@ -23,5 +24,12 @@ export class DepartmentController {
 	@Delete("/deleteDepartment")
 	public async deleteDepartment(@Body() deleteDepartmentData: DeleteDepartmentData) {
 		return this.departmentService.deleteDepartment(deleteDepartmentData);
+	}
+
+	@UseGuards(RequireAdminGuard)
+	@UseGuards(AuthenticatedGuard)
+	@Post("/updateDepartment")
+	public async updateDepartment(@Body() updateDepartmentData: UpdateDepartmentData) {
+		return this.departmentService.updateDepartment(updateDepartmentData);
 	}
 }

@@ -187,7 +187,7 @@ export class InsertDepartmentData {
 	public readonly location: string;
 }
 
-export class UpdateDepartmentData extends BaseDepartmentRequestData{
+export class UpdateDepartmentData extends BaseDepartmentRequestData {
 	@IsString()
 	@IsOptional()
 	public readonly name?: string;
