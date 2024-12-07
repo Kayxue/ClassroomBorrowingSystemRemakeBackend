@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, Delete } from "@nestjs/common";
+import { Body, Controller, Post, UseGuards, Delete, Get } from "@nestjs/common";
 import { DepartmentService } from "./department.service.ts";
 import type {
 	DeleteDepartmentData,
@@ -11,6 +11,12 @@ import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
 @Controller("department")
 export class DepartmentController {
 	public constructor(private departmentService: DepartmentService) {}
+
+	@UseGuards(AuthenticatedGuard)
+	@Get("/getAllDepartments")
+	public async getAllDepartments() {
+		return this.departmentService.getAllDepartments();
+	}
 
 	@UseGuards(RequireAdminGuard)
 	@UseGuards(AuthenticatedGuard)

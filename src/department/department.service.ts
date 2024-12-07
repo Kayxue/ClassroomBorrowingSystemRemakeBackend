@@ -14,6 +14,19 @@ export class DepartmentService {
 		@Inject("drizzledb") private drizzledb: MySql2Database<typeof schema>,
 	) {}
 
+	public async getAllDepartments() {
+		const departments = await this.drizzledb.query.department.findMany();
+		const departmentWithUserCount = await Promise.all(
+			departments.map(async (department) => {
+				const userCount = await this.drizzledb.query.user.findMany({
+					where: eq(schema.user.departmentId, department.id as string),
+				}).then(users => users.length);
+				return { ...department, userCount };
+			}),
+		);
+		return departmentWithUserCount;
+	}
+
 	public insertDepartment(data: InsertDepartmentData) {
 		return this.drizzledb
 			.insert(schema.department)
