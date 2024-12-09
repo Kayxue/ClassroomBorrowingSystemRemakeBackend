@@ -15,7 +15,7 @@ export class DepartmentService {
 	) {}
 
 	public async getAllDepartments() {
-		const departments = await this.drizzledb.query.department.findMany();
+		const departments = await this.drizzledb.query.department.findMany({with:{members:true}});
 		const departmentWithUserCount = await Promise.all(
 			departments.map(async (department) => {
 				const userCount = await this.drizzledb.query.user.findMany({
@@ -25,6 +25,10 @@ export class DepartmentService {
 			}),
 		);
 		return departmentWithUserCount;
+	}
+
+	public async getDepartment(retrieveMember:boolean){
+		const department=await this.drizzledb.query.department.findFirst()
 	}
 
 	public insertDepartment(data: InsertDepartmentData) {

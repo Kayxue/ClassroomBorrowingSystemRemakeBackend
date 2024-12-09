@@ -107,4 +107,7 @@ export class BorrowService {
 
 
     // TODO: Retrieve borrowing records of today
+    public async getTodaysBorrow(){
+        const data=await this.drizzledb.select().from(schema.user).innerJoin(schema.borrowing,eq(schema.user.id,schema.borrowing.userId))
+    }
 }

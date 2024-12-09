@@ -68,7 +68,7 @@ export const departmentRelations = relations(department, ({ many }) => ({
 export const userRelations = relations(user, ({ many, one }) => ({
 	borrows: many(borrowing),
 	department: one(department, {
-		fields: [user.id],
+		fields: [user.departmentId],
 		references: [department.id],
 	}),
 }));

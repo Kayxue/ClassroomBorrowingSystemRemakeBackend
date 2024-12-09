@@ -1039,11 +1039,11 @@
     "packageJson": {
       "dependencies": [
         "npm:@knaadh/nestjs-drizzle-mysql2@^1.2.0",
-        "npm:@nestjs/cli@^10.4.8",
-        "npm:@nestjs/common@^10.4.13",
-        "npm:@nestjs/core@^10.4.13",
+        "npm:@nestjs/cli@^10.4.9",
+        "npm:@nestjs/common@^10.4.15",
+        "npm:@nestjs/core@^10.4.15",
         "npm:@nestjs/passport@^10.0.3",
-        "npm:@nestjs/platform-express@^10.4.13",
+        "npm:@nestjs/platform-express@^10.4.15",
         "npm:@nestjs/schematics@^10.2.3",
         "npm:@nestjs/swagger@^7.4.2",
         "npm:@types/express-session@^1.18.1",
