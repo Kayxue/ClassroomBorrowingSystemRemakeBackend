@@ -31,9 +31,14 @@ export class DepartmentService {
 		return departmentWithUserCount;
 	}
 
-	public async getDepartment(retrieveMember: boolean) {
-		const department = await this.drizzledb.query.department.findFirst();
-		return department
+	public async getDepartment(departmentID: string, retrieveMember: boolean) {
+		const department = await this.drizzledb.query.department.findFirst({
+			where: eq(schema.department.id, departmentID),
+			with: { members: retrieveMember || undefined },
+		});
+		if (!department)
+			throw new BadRequestException("Can't find specific department data");
+		return department;
 	}
 
 	public insertDepartment(data: InsertDepartmentData) {

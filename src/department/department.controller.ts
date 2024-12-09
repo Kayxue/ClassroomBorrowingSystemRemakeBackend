@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Post, UseGuards } from "@nestjs/common";
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	ParseBoolPipe,
+	Post,
+	Query,
+	UseGuards,
+} from "@nestjs/common";
 import { DepartmentService } from "./department.service.ts";
 import type {
 	DeleteDepartmentData,
@@ -16,6 +26,15 @@ export class DepartmentController {
 	@Get("/getAllDepartments")
 	public async getAllDepartments() {
 		return this.departmentService.getAllDepartments();
+	}
+
+	@UseGuards(AuthenticatedGuard)
+	@Get("getDepartment/:id")
+	public async getDepartment(
+		@Param("id") id: string,
+		@Query("members", new ParseBoolPipe({ optional: true })) members: boolean,
+	) {
+		return this.departmentService.getDepartment(id, members);
 	}
 
 	@UseGuards(RequireAdminGuard)
