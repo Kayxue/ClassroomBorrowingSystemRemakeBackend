@@ -41,12 +41,13 @@ export class DepartmentService {
 		return department;
 	}
 
-	public async insertDepartment(data: InsertDepartmentData) {
-		try {
-			return await this.drizzledb.insert(schema.department).values({ ...data });
-		} catch (_) {
-			throw new BadRequestException("此部門已經新增");
-		}
+	public insertDepartment(data: InsertDepartmentData) {
+		return this.drizzledb
+			.insert(schema.department)
+			.values({ ...data })
+			.catch((_) => {
+				throw new BadRequestException("此部門已經新增");
+			});
 	}
 
 	public async deleteDepartment(data: DeleteDepartmentData) {
