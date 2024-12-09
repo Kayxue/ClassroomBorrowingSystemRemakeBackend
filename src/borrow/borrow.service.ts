@@ -2,7 +2,7 @@ import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import * as schema from "../drizzle/schema.ts";
 import { DeleteBorrowData, InsertBorrowData } from "../Types/RequestBody.dto.ts";
 import { type MySql2Database } from "drizzle-orm/mysql2";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 @Injectable()
 export class BorrowService {
@@ -108,6 +108,7 @@ export class BorrowService {
 
     // TODO: Retrieve borrowing records of today
     public async getTodaysBorrow(){
-        const data=await this.drizzledb.select().from(schema.user).innerJoin(schema.borrowing,eq(schema.user.id,schema.borrowing.userId))
+        const data=await this.drizzledb.select().from(schema.user).innerJoin(schema.borrowing,eq(schema.user.id,schema.borrowing.userId)).where(sql`WEEKDAYS(${schema.borrowing.startTime}) = ${((new Date()).getDay()+6)%7}`)
+        return data
     }
 }

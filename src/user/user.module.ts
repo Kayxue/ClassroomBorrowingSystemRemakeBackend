@@ -6,20 +6,20 @@ import { MySQLConfig } from "../Config.ts";
 import * as schema from "../drizzle/schema.ts";
 
 @Module({
-	controllers: [UserController],
-	providers: [UserService],
-	exports: [UserService],
-	imports: [
-		DrizzleMySqlModule.register({
-			tag: "drizzledb",
-			mysql: {
-				connection: "client",
-				config: {
-					...MySQLConfig,
-				},
-			},
-			config: { schema: { ...schema }, mode: "default" },
-		}),
-	],
+  controllers: [UserController],
+  providers: [UserService],
+  exports: [UserService],
+  imports: [
+    DrizzleMySqlModule.register({
+      tag: "drizzledb",
+      mysql: {
+        connection: "client",
+        config: {
+          ...MySQLConfig,
+        },
+      },
+      config: { schema: { ...schema }, mode: "default" },
+    }),
+  ],
 })
 export class UserModule {}

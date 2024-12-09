@@ -6,19 +6,19 @@ import * as schema from "../drizzle/schema.ts";
 import { DrizzleMySqlModule } from "@knaadh/nestjs-drizzle-mysql2";
 
 @Module({
-	controllers: [BorrowController],
-	providers: [BorrowService],
-	imports: [
-		DrizzleMySqlModule.register({
-			tag: "drizzledb",
-			mysql: {
-				connection: "client",
-				config: {
-					...MySQLConfig,
-				},
-			},
-			config: { schema: { ...schema }, mode: "default" },
-		}),
-	],
+  controllers: [BorrowController],
+  providers: [BorrowService],
+  imports: [
+    DrizzleMySqlModule.register({
+      tag: "drizzledb",
+      mysql: {
+        connection: "client",
+        config: {
+          ...MySQLConfig,
+        },
+      },
+      config: { schema: { ...schema }, mode: "default" },
+    }),
+  ],
 })
 export class BorrowModule {}
