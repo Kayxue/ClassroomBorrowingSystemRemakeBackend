@@ -22,7 +22,6 @@ import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
 export class DepartmentController {
 	public constructor(private departmentService: DepartmentService) {}
 
-	@UseGuards(AuthenticatedGuard)
 	@Get("/getAllDepartments")
 	public async getAllDepartments() {
 		return this.departmentService.getAllDepartments();
