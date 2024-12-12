@@ -124,7 +124,7 @@ export class BorrowService {
 			.from(schema.user)
 			.innerJoin(schema.borrowing, eq(schema.user.id, schema.borrowing.userId))
 			.where(
-				sql`WEEKDAYS(${schema.borrowing.startTime}) = ${(new Date().getDay() + 6) % 7}`,
+				sql`weekday(${schema.borrowing.startTime}) = ${(new Date().getDay() + 6) % 7}`,
 			);
 		return data;
 	}
