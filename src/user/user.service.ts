@@ -45,10 +45,10 @@ export class UserService {
     });
   }
 
-  public getUserById(id: string, withBorrowData: boolean | undefined) {
+  public getUserById(id: string, withBorrowData: boolean | undefined, withDepartment: boolean) {
     return this.drizzledb.query.user.findFirst({
       where: eq(schema.user.id, id),
-      with: { borrows: withBorrowData || undefined },
+      with: { borrows: withBorrowData || undefined , department: withDepartment || undefined},
       columns: { password: false },
     });
   }

@@ -54,7 +54,7 @@ export class UserController {
 	@UseGuards(AuthenticatedGuard)
 	@Get("/profile")
 	public async getProfile(@Request() request: any) {
-		return this.userService.getUserById(request.user.id, true);
+		return this.userService.getUserById(request.user.id, true, true);
 	}
 
 	@UseGuards(new partActionsLoginRequiredGuard(["borrow", true]))
@@ -63,7 +63,7 @@ export class UserController {
 		@Param("id") userId: string,
 		@Query("borrow", new ParseBoolPipe({ optional: true })) getBorrow?: boolean,
 	) {
-		const o = await this.userService.getUserById(userId, getBorrow);
+		const o = await this.userService.getUserById(userId, getBorrow, false);
 		if (!o) throw new BadRequestException("找不到指定使用者");
 		return o;
 	}
