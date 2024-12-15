@@ -29,9 +29,12 @@ export class ClassroomController {
 	public async getClassroom(
 		@Param("id") classroomId: string,
 		@Query("borrows", new ParseBoolPipe({ optional: true })) borrows?: boolean,
+		@Query("isToday", new ParseBoolPipe({ optional: true })) isToday?: boolean,
 	) {
-		return (
-			(await this.classroomService.getClassroom(classroomId, borrows)) ?? {}
+		return await this.classroomService.getClassroom(
+			classroomId,
+			borrows,
+			isToday,
 		);
 	}
 

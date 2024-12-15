@@ -6,7 +6,7 @@ import {
 	InsertClassroomData,
 	UpdateClassroomData,
 } from "../Types/RequestBody.dto.ts";
-import { eq } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 
 @Injectable()
 export class ClassroomService {
@@ -24,16 +24,45 @@ export class ClassroomService {
 			});
 	}
 
-	public async getClassroom(id: string, borrows?: boolean) {
+	public async getClassroom(id: string, borrows?: boolean, isToday?: boolean) {
+		const todayCondition = isToday
+			? sql`${schema.borrowing.startTime} = date(${new Date()})`
+			: undefined;
+
 		return this.drizzledb.query.classroom.findFirst({
 			where: eq(schema.classroom.id, id),
-			with: { borrowingDatas: borrows || undefined },
+			with: {
+				borrowingDatas: borrows
+					? {
+							where: todayCondition,
+							with: {
+								user: {
+									columns: {
+										username: true,
+									},
+								},
+							},
+						}
+					: undefined,
+			},
 		});
 	}
 
 	public async getClassrooms(borrows?: boolean) {
 		return this.drizzledb.query.classroom.findMany({
-			with: { borrowingDatas: borrows || undefined },
+			with: {
+				borrowingDatas: borrows
+					? {
+							with: {
+								user: {
+									columns: {
+										username: true,
+									},
+								},
+							},
+						}
+					: undefined,
+			},
 		});
 	}
 

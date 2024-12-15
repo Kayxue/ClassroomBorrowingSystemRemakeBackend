@@ -34,7 +34,6 @@ export class BorrowController {
 		return this.borrowService.deleteBorrowData(borrowData);
 	}
 
-	// TODO: Retrieve borrowing records of today
 	@UseGuards(AuthenticatedGuard)
 	@Get("getTodayBorrow")
 	public async getTodayBorrow() {

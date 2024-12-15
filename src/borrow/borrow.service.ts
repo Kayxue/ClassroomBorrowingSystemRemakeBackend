@@ -5,7 +5,7 @@ import {
 	InsertBorrowData,
 } from "../Types/RequestBody.dto.ts";
 import { type MySql2Database } from "drizzle-orm/mysql2";
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 
 @Injectable()
 export class BorrowService {
@@ -117,15 +117,16 @@ export class BorrowService {
 		}
 	}
 
-	// TODO: Retrieve borrowing records of today
 	public async getTodaysBorrow() {
 		const data = await this.drizzledb
 			.select()
 			.from(schema.user)
 			.innerJoin(schema.borrowing, eq(schema.user.id, schema.borrowing.userId))
-			.where(
-				sql`${schema.borrowing.startTime} = date(${new Date()})`,
-			);
+			.innerJoin(
+				schema.classroom,
+				eq(schema.borrowing.classroomId, schema.classroom.id),
+			)
+			.where(sql`${schema.borrowing.startTime} = date(${new Date()})`);
 		return data;
 	}
 }
