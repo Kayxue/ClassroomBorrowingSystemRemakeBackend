@@ -30,7 +30,7 @@ export class BorrowService {
 				};
 			}
 
-			//End Time Correct
+			//End Time Correction
 			while (startTimeMoment.weekday() !== endTimeMoment.weekday()) {
 				endTimeMoment = endTimeMoment.add(-1, "d");
 			}
