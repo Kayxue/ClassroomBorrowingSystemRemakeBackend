@@ -6,7 +6,7 @@ import {
 	InsertBorrowData,
 } from "../Types/RequestBody.dto.ts";
 import { type MySql2Database } from "drizzle-orm/mysql2";
-import { and, between, eq, gt, gte, lt, lte, or, sql } from "drizzle-orm";
+import { and, eq, gte, lte, or, sql } from "drizzle-orm";
 
 @Injectable()
 export class BorrowService {
@@ -31,7 +31,7 @@ export class BorrowService {
 			}
 
 			//End Time Correction
-			while (startTimeMoment.weekday() !== endTimeMoment.weekday()) {
+			while (startTimeMoment.day() !== endTimeMoment.day()) {
 				endTimeMoment = endTimeMoment.add(-1, "d");
 			}
 
@@ -44,7 +44,7 @@ export class BorrowService {
 				.select()
 				.from(firstLevelFilter)
 				.where(
-					sql`weekday(${schema.borrowing.startTime}) = ${(startTimeMoment.weekday() + 6) % 7}`,
+					sql`weekday(${schema.borrowing.startTime}) = ${(startTimeMoment.day() + 6) % 7}`,
 				)
 				.as("secondLevelFilter");
 			const thirdLevelFilter = this.drizzledb
