@@ -1,12 +1,11 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
-import moment from "moment-timezone";
 import * as schema from "../drizzle/schema.ts";
 import {
 	DeleteBorrowData,
 	InsertBorrowData,
 } from "../Types/RequestBody.dto.ts";
 import { type MySql2Database } from "drizzle-orm/mysql2";
-import { and, eq, gte, lte, or, sql } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 
 @Injectable()
 export class BorrowService {
@@ -18,11 +17,11 @@ export class BorrowService {
 		try {
 			// 解構借用數據
 			const { userId, startTime, endTime, from, to, classroomId } = borrowData;
-			const startTimeMoment = moment(startTime);
-			let endTimeMoment = moment(endTime);
+			const startTimeMs = startTime.getTime();
+			const endTimeMs = endTime.getTime();
 
 			// 驗證輸入的時間順序
-			if (startTimeMoment.diff(endTimeMoment) > 0 || from > to) {
+			if (startTimeMs > endTimeMs || from > to) {
 				return {
 					success: false,
 					message: "時間輸入錯誤，開始時間應早於結束時間",
@@ -30,54 +29,41 @@ export class BorrowService {
 				};
 			}
 
-			//End Time Correction
-			while (startTimeMoment.day() !== endTimeMoment.day()) {
-				endTimeMoment.add(-1, "d");
-			}
+			// 查找教室的所有借用記錄
+			const allBorrowOfClassroom =
+				await this.drizzledb.query.borrowing.findMany({
+					where: eq(schema.borrowing.classroomId, classroomId),
+				});
 
-			const firstLevelFilter = this.drizzledb
-				.select()
-				.from(schema.borrowing)
-				.where(eq(schema.borrowing.classroomId, classroomId))
-				.as("firstLevelFilter");
-			const secondLevelFilter = this.drizzledb
-				.select()
-				.from(firstLevelFilter)
-				.where(
-					sql`weekday(${schema.borrowing.startTime}) = ${(startTimeMoment.day() + 6) % 7}`,
-				)
-				.as("secondLevelFilter");
-			const thirdLevelFilter = this.drizzledb
-				.select()
-				.from(secondLevelFilter)
-				.where(
-					or(
-						and(
-							lte(schema.borrowing.startTime, startTimeMoment.toDate()),
-							gte(schema.borrowing.endTime, startTimeMoment.toDate()),
-						),
-						and(
-							lte(schema.borrowing.startTime, endTimeMoment.toDate()),
-							gte(schema.borrowing.endTime, endTimeMoment.toDate()),
-						),
-					),
-				)
-				.as("thirdLevelFilter");
-			const finalResult = await this.drizzledb
-				.select()
-				.from(thirdLevelFilter)
-				.where(
-					or(
-						and(
-							lte(schema.borrowing.from, from),
-							gte(schema.borrowing.to, from),
-						),
-						and(lte(schema.borrowing.from, to), gte(schema.borrowing.to, to)),
-					),
-				);
+			// 檢查是否有重疊的借用記錄
+			const overlappingBorrows = allBorrowOfClassroom.filter((e) => {
+				if (e.startTime !== null && e.endTime !== null) {
+					const existingStartTimeMs = new Date(e.startTime).getTime();
+					const existingEndTimeMs = new Date(e.endTime).getTime();
+					const timeOverlap =
+						startTimeMs < existingEndTimeMs && endTimeMs > existingStartTimeMs;
+					const periodOverlap = to >= e.from && from <= e.to;
+
+					// 檢查是否有時間和節數重疊
+					if (
+						(startTimeMs === existingEndTimeMs ||
+							endTimeMs === existingStartTimeMs ||
+							startTimeMs === existingStartTimeMs ||
+							endTimeMs === existingEndTimeMs) &&
+						periodOverlap
+					) {
+						return true;
+					}
+
+					if (timeOverlap && periodOverlap) {
+						return true;
+					}
+				}
+				return false;
+			});
 
 			// 如果有重疊的記錄，拋出異常
-			if (finalResult.length > 0) {
+			if (overlappingBorrows.length > 0) {
 				return {
 					success: false,
 					message: "此時間段和課節已被預訂",
@@ -85,13 +71,8 @@ export class BorrowService {
 				};
 			}
 
-			const toInsert = {
-				...borrowData,
-				endTime: endTimeMoment.toDate(),
-			};
-
 			// 插入新的借用記錄
-			await this.drizzledb.insert(schema.borrowing).values({ ...toInsert });
+			await this.drizzledb.insert(schema.borrowing).values({ ...borrowData });
 			return {
 				success: true,
 				message: "借用記錄成功插入",
