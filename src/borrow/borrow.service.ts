@@ -32,7 +32,7 @@ export class BorrowService {
 
 			//End Time Correction
 			while (startTimeMoment.day() !== endTimeMoment.day()) {
-				endTimeMoment = endTimeMoment.add(-1, "d");
+				endTimeMoment.add(-1, "d");
 			}
 
 			const firstLevelFilter = this.drizzledb
