@@ -127,7 +127,7 @@ export class UpdateClassroomData extends BaseClassroomRequestData {
   public readonly description?: string;
 }
 
-export class BaseBorrowRequestData {
+export class BaseBorrowRequestData extends BaseUserRequestData {
   @IsString()
   @IsNotEmpty()
   public readonly borrowId: string;
@@ -150,13 +150,13 @@ export class InsertBorrowData {
 
   @IsInt()
   @IsNotEmpty()
-  @Max(7)
+  @Max(8)
   @Min(0)
   public readonly from: number;
 
   @IsInt()
   @IsNotEmpty()
-  @Max(7)
+  @Max(8)
   @Min(0)
   public readonly to: number;
 
