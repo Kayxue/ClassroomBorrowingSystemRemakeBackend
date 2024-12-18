@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import type { MySql2Database } from "drizzle-orm/mysql2";
-import { eq } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 import * as schema from "../drizzle/schema.ts";
 import type {
 	DeleteDepartmentData,
@@ -15,20 +15,21 @@ export class DepartmentService {
 	) {}
 
 	public async getAllDepartments() {
-		const departments = await this.drizzledb.query.department.findMany({
-			with: { members: true },
-		});
+		const departments = await this.drizzledb.query.department.findMany();
 		const departmentWithUserCount = await Promise.all(
 			departments.map(async (department) => {
-				const userCount = await this.drizzledb.query.user
-					.findMany({
-						where: eq(schema.user.departmentId, department.id as string),
-					})
-					.then((users) => users.length);
+				const userCountObj = await this.drizzledb
+					.select({ count: count() })
+					.from(schema.user)
+					.where(eq(schema.user.departmentId, department.id as string));
+				const userCount = userCountObj[0].count;
 				return { ...department, userCount };
 			}),
 		);
-		return departmentWithUserCount;
+		const departmentCount = await this.drizzledb
+			.select({ count: count() })
+			.from(schema.department);
+		return { count: departmentCount[0].count, departmentWithUserCount };
 	}
 
 	public async getDepartment(departmentID: string, retrieveMember: boolean) {
