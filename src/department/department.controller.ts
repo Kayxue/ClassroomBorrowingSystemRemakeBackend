@@ -27,7 +27,6 @@ export class DepartmentController {
 		return this.departmentService.getAllDepartments();
 	}
 
-	@UseGuards(AuthenticatedGuard)
 	@Get("getDepartment/:id")
 	public async getDepartment(
 		@Param("id") id: string,
