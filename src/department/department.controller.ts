@@ -9,7 +9,7 @@ import {
 	Query,
 	UseGuards,
 } from "@nestjs/common";
-import { DepartmentService } from "./department.service.ts";
+import { DepartmentService } from "./department.service";
 import type {
 	DeleteDepartmentData,
 	InsertDepartmentData,

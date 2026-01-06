@@ -1,11 +1,11 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
-import * as schema from "../drizzle/schema.ts";
+import * as schema from "../drizzle/schema";
 import { type MySql2Database } from "drizzle-orm/mysql2";
 import {
 	DeleteClassroomData,
 	InsertClassroomData,
 	UpdateClassroomData,
-} from "../Types/RequestBody.dto.ts";
+} from "../Types/RequestBody.dto";
 import { eq, sql, and } from "drizzle-orm";
 
 @Injectable()

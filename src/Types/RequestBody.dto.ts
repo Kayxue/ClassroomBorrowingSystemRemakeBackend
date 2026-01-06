@@ -8,7 +8,7 @@ import {
   Max,
   Min,
 } from "class-validator";
-import { Roles } from "./Types.ts";
+import { Roles } from "./Types";
 import { Type } from "class-transformer";
 
 export class BaseUserRequestData {

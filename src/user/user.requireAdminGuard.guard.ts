@@ -4,7 +4,7 @@ import {
 	ForbiddenException,
 	Injectable,
 } from "@nestjs/common";
-import { Roles } from "../Types/Types.ts";
+import { Roles } from "../Types/Types";
 
 @Injectable()
 export class RequireAdminGuard implements CanActivate {

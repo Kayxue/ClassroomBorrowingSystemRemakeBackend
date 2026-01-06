@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
-import { UserController } from "./user.controller.ts";
-import { UserService } from "./user.service.ts";
+import { UserController } from "./user.controller";
+import { UserService } from "./user.service";
 import { DrizzleMySqlModule } from "@knaadh/nestjs-drizzle-mysql2";
-import { MySQLConfig } from "../Config.ts";
-import * as schema from "../drizzle/schema.ts";
+import { MySQLConfig } from "../Config";
+import * as schema from "../drizzle/schema";
 
 @Module({
   controllers: [UserController],

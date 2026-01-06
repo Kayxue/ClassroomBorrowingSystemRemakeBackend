@@ -9,10 +9,10 @@ import {
 import {
 	DeleteBorrowData,
 	InsertBorrowData,
-} from "../Types/RequestBody.dto.ts";
-import { CheckSelfUserActionGuard } from "../user/user.checkSelfAction.guard.ts";
-import { BorrowService } from "./borrow.service.ts";
-import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
+} from "../Types/RequestBody.dto";
+import { CheckSelfUserActionGuard } from "../user/user.checkSelfAction.guard";
+import { BorrowService } from "./borrow.service";
+import { AuthenticatedGuard } from "../auth/authenticated.guard";
 
 @Controller("borrow")
 export class BorrowController {

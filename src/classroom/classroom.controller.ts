@@ -10,15 +10,15 @@ import {
 	Query,
 	UseGuards,
 } from "@nestjs/common";
-import { ClassroomService } from "./classroom.service.ts";
+import { ClassroomService } from "./classroom.service";
 import {
 	DeleteClassroomData,
 	InsertClassroomData,
 	UpdateClassroomData,
-} from "../Types/RequestBody.dto.ts";
-import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
-import { RequireAdminGuard } from "../user/user.requireAdminGuard.guard.ts";
-import { partActionsLoginRequiredGuard } from "../auth/user.partActionsLoginRequired.guard.ts";
+} from "../Types/RequestBody.dto";
+import { AuthenticatedGuard } from "../auth/authenticated.guard";
+import { RequireAdminGuard } from "../user/user.requireAdminGuard.guard";
+import { partActionsLoginRequiredGuard } from "../auth/user.partActionsLoginRequired.guard";
 
 @Controller("classroom")
 export class ClassroomController {

@@ -13,20 +13,20 @@ import {
 	Session,
 	UseGuards,
 } from "@nestjs/common";
-import { UserService } from "./user.service.ts";
+import { UserService } from "./user.service";
 import {
 	DeleteUserData,
 	InsertUserData,
 	UpdateUserData,
 	UpdateUserPasswordData,
-} from "../Types/RequestBody.dto.ts";
-import { LocalAuthGuard } from "../auth/local.auth.guard.ts";
-import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
-import { Roles } from "../Types/Types.ts";
-import { CheckSelfUserActionGuard } from "./user.checkSelfAction.guard.ts";
-import { CheckModifySelfRoleGuard } from "./user.checkModifySelfRole.guard.ts";
-import { partActionsLoginRequiredGuard } from "../auth/user.partActionsLoginRequired.guard.ts";
-import { CheckModifySelfDepartmentGuard } from "./user.checkModifySelfDepartment.guard.ts";
+} from "../Types/RequestBody.dto";
+import { LocalAuthGuard } from "../auth/local.auth.guard";
+import { AuthenticatedGuard } from "../auth/authenticated.guard";
+import { Roles } from "../Types/Types";
+import { CheckSelfUserActionGuard } from "./user.checkSelfAction.guard";
+import { CheckModifySelfRoleGuard } from "./user.checkModifySelfRole.guard";
+import { partActionsLoginRequiredGuard } from "../auth/user.partActionsLoginRequired.guard";
+import { CheckModifySelfDepartmentGuard } from "./user.checkModifySelfDepartment.guard";
 // @deno-types="npm:@types/express"
 import express from "express";
 

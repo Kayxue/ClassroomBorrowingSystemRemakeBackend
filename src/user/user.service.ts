@@ -4,16 +4,16 @@ import {
 	InsertUserData,
 	UpdateUserData,
 	UpdateUserPasswordData,
-} from "../Types/RequestBody.dto.ts";
-import * as argon2 from "@felix/argon2";
+} from "../Types/RequestBody.dto";
+import {verify,hash,Algorithm,Version} from "@node-rs/argon2";
 import {
 	passwordParallelism,
 	passwordSecret,
 	saltTimeCount,
-} from "../Config.ts";
-import { IAdminActionData } from "../Types/Types.ts";
+} from "../Config";
+import { IAdminActionData } from "../Types/Types";
 import { type MySql2Database } from "drizzle-orm/mysql2";
-import * as schema from "../drizzle/schema.ts";
+import * as schema from "../drizzle/schema";
 import { eq, sql } from "drizzle-orm";
 
 @Injectable()
@@ -23,12 +23,12 @@ export class UserService {
 	) {}
 
 	public async insertUser(insertUserObj: InsertUserData) {
-		const hashedPassword = await argon2.hash(insertUserObj.password, {
-			variant: argon2.Variant.Argon2id,
-			version: argon2.Version.V13,
+		const hashedPassword = await hash(insertUserObj.password, {
+			algorithm: Algorithm.Argon2id,
+			version: Version.V0x13,
 			timeCost: saltTimeCount,
 			secret: passwordSecret,
-			lanes: passwordParallelism,
+			parallelism: passwordParallelism,
 		});
 		return this.drizzledb
 			.insert(schema.user)
@@ -106,7 +106,7 @@ export class UserService {
 			const user = await this.drizzledb.query.user.findFirst({
 				where: eq(schema.user.id, userId),
 			});
-			const oldPasswordMatch = await argon2.verify(
+			const oldPasswordMatch = await verify(
 				user!.password,
 				oldPassword,
 				passwordSecret,
@@ -115,12 +115,12 @@ export class UserService {
 			if (oldPassword === newPassword) {
 				throw new BadRequestException("新舊密碼一致");
 			}
-			const newHashedPassword = await argon2.hash(newPassword, {
-				variant: argon2.Variant.Argon2id,
-				version: argon2.Version.V13,
+			const newHashedPassword = await hash(newPassword, {
+				algorithm: Algorithm.Argon2id,
+				version: Version.V0x13,
 				timeCost: saltTimeCount,
 				secret: passwordSecret,
-				lanes: passwordParallelism,
+				parallelism: passwordParallelism,
 			});
 			return this.drizzledb
 				.update(schema.user)
@@ -130,7 +130,7 @@ export class UserService {
 			const admin = await this.drizzledb.query.user.findFirst({
 				where: eq(schema.user.id, adminId),
 			});
-			const adminPasswordCorrect = await argon2.verify(
+			const adminPasswordCorrect = await verify(
 				admin!.password,
 				oldPassword,
 				passwordSecret,
@@ -138,12 +138,12 @@ export class UserService {
 			if (!adminPasswordCorrect) {
 				throw new BadRequestException("管理員密碼錯誤");
 			}
-			const newHashedPassword = await argon2.hash(newPassword, {
-				variant: argon2.Variant.Argon2id,
-				version: argon2.Version.V13,
+			const newHashedPassword = await hash(newPassword, {
+				algorithm: Algorithm.Argon2id,
+				version: Version.V0x13,
 				timeCost: saltTimeCount,
 				secret: passwordSecret,
-				lanes: passwordParallelism,
+				parallelism: passwordParallelism,
 			});
 			return this.drizzledb
 				.update(schema.user)
