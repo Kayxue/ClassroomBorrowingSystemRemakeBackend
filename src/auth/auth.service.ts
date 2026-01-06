@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { UserService } from "../user/user.service";
-import { verify } from "@node-rs/argon2";
-import { passwordSecret } from "../Config";
+import { Algorithm, verify, Version } from "@node-rs/argon2";
+import { passwordParallelism, passwordSecret, saltTimeCount } from "../Config";
 
 @Injectable()
 export class AuthService {
@@ -13,7 +13,13 @@ export class AuthService {
 		const correct = await verify(
 			user.password,
 			password,
-			passwordSecret,
+			{
+				algorithm: Algorithm.Argon2id,
+				version: Version.V0x13,
+				timeCost: saltTimeCount,
+				secret: passwordSecret,
+				parallelism: passwordParallelism,
+			}
 		);
 		if (user && correct) {
 			const { password, ...restUser } = user;

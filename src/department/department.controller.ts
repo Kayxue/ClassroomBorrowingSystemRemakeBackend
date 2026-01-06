@@ -15,8 +15,8 @@ import type {
 	InsertDepartmentData,
 	UpdateDepartmentData,
 } from "../Types/RequestBody.dto.ts";
-import { RequireAdminGuard } from "../user/user.requireAdminGuard.guard.ts";
-import { AuthenticatedGuard } from "../auth/authenticated.guard.ts";
+import { RequireAdminGuard } from "../user/user.requireAdminGuard.guard";
+import { AuthenticatedGuard } from "../auth/authenticated.guard";
 
 @Controller("department")
 export class DepartmentController {

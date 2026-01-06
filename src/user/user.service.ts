@@ -109,7 +109,13 @@ export class UserService {
 			const oldPasswordMatch = await verify(
 				user!.password,
 				oldPassword,
-				passwordSecret,
+				{
+					algorithm: Algorithm.Argon2id,
+					version: Version.V0x13,
+					timeCost: saltTimeCount,
+					secret: passwordSecret,
+					parallelism: passwordParallelism,
+				}
 			);
 			if (!oldPasswordMatch) throw new BadRequestException("舊密碼錯誤");
 			if (oldPassword === newPassword) {
@@ -133,7 +139,13 @@ export class UserService {
 			const adminPasswordCorrect = await verify(
 				admin!.password,
 				oldPassword,
-				passwordSecret,
+				{
+					algorithm: Algorithm.Argon2id,
+					version: Version.V0x13,
+					timeCost: saltTimeCount,
+					secret: passwordSecret,
+					parallelism: passwordParallelism,
+				}
 			);
 			if (!adminPasswordCorrect) {
 				throw new BadRequestException("管理員密碼錯誤");
